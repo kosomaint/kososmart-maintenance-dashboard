@@ -147,6 +147,238 @@
     font-size: 0.9em; 
   }
 
+  /* Temperature Card Styles */
+  .temp-card {
+    background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid #4a5568;
+    position: relative;
+    overflow: hidden;
+  }
+  .temp-card.light-mode {
+    background: linear-gradient(145deg, #ffffff 0%, #f3f4f6 100%);
+    border: 1px solid #d1d5db;
+  }
+  .temp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    border-color: #3b82f6;
+  }
+  .temp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+  }
+
+  /* Temperature Header Styles */
+  .temp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #4a5568;
+  }
+  .temp-header.light-mode {
+    border-bottom: 1px solid #d1d5db;
+  }
+  .temp-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .temp-icon.spindle { background: linear-gradient(135deg, #ef4444, #991b1b); }
+  .temp-icon.x-motor { background: linear-gradient(135deg, #f59e0b, #b45309); }
+  .temp-icon.z-motor { background: linear-gradient(135deg, #3b82f6, #1e3a8a); }
+  .temp-icon.hydraulic { background: linear-gradient(135deg, #10b981, #047857); }
+
+  /* Temperature Value Styles */
+  .temp-current {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+  }
+  .temp-current.spindle { color: #ef4444; }
+  .temp-current.x-motor { color: #f59e0b; }
+  .temp-current.z-motor { color: #3b82f6; }
+  .temp-current.hydraulic { color: #10b981; }
+  .temp-unit {
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-left: 5px;
+  }
+
+  /* Temperature Progress Bar */
+  .temp-progress-container {
+    background-color: #4a5568;
+    height: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+  }
+  .temp-progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+  .temp-progress-bar.spindle { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .temp-progress-bar.x-motor { background: linear-gradient(90deg, #f59e0b, #d97706); }
+  .temp-progress-bar.z-motor { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+  .temp-progress-bar.hydraulic { background: linear-gradient(90deg, #10b981, #059669); }
+
+  /* Temperature Threshold Indicators */
+  .temp-thresholds {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 5px;
+  }
+  .temp-threshold {
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .temp-threshold.normal { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+  .temp-threshold.warning { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+  .temp-threshold.abnormal { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+
+  /* Temperature Stats Grid */
+  .temp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #4a5568;
+  }
+  .temp-stat {
+    text-align: center;
+  }
+  .temp-stat-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-bottom: 5px;
+  }
+  .temp-stat-value {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .temp-stat-value.spindle { color: #ef4444; }
+  .temp-stat-value.x-motor { color: #f59e0b; }
+  .temp-stat-value.z-motor { color: #3b82f6; }
+  .temp-stat-value.hydraulic { color: #10b981; }
+
+  /* Temperature Gauge Container */
+  .temp-gauge-container {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin: 20px 0;
+  }
+
+  /* Temperature Analysis Grid */
+  .temperature-analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .temperature-analysis-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .temperature-analysis-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Temperature Chart Container */
+  .temp-chart-wrapper {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    height: 200px;
+  }
+
+  /* Temperature Summary Card */
+  .temp-summary-card {
+    background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #4a5568;
+  }
+  .temp-summary-card.light-mode {
+    background: linear-gradient(145deg, #ffffff 0%, #f3f4f6 100%);
+    border: 1px solid #d1d5db;
+  }
+
+  /* Temperature Alert Styles */
+  .temp-alert {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin: 10px 0;
+    animation: pulse 2s infinite;
+  }
+  .temp-alert.warning {
+    background: rgba(255, 193, 7, 0.2);
+    border-left: 4px solid #ffc107;
+  }
+  .temp-alert.abnormal {
+    background: rgba(220, 53, 69, 0.2);
+    border-left: 4px solid #dc3545;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+
+  /* Temperature Legend */
+  .temp-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 15px 0;
+    flex-wrap: wrap;
+  }
+  .temp-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+  }
+  .temp-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+  }
+  .temp-legend-color.spindle { background: #ef4444; }
+  .temp-legend-color.x-motor { background: #f59e0b; }
+  .temp-legend-color.z-motor { background: #3b82f6; }
+  .temp-legend-color.hydraulic { background: #10b981; }
+
   /* Alarm Styles */
   .alarm { 
     background-color: #7f1d1d; 
@@ -169,7 +401,7 @@
   .main-content.full-screen {
     margin-left: 0;
     width: 100%;
-}
+  }
 
   /* Header Styles */
   .header { 
@@ -563,8 +795,6 @@
     background-color: #dc3545;
   }
 
- 
-
   /* Chart Container Styles */
   .chart-container {
     position: relative;
@@ -749,18 +979,6 @@
     font-size: 0.8rem;
     font-weight: bold;
   }
-  .status-normal {
-    background-color: #28a745;
-    color: white;
-  }
-  .status-warning {
-    background-color: #ffc107;
-    color: black;
-  }
-  .status-abnormal {
-    background-color: #dc3545;
-    color: white;
-  }
 
   /* Excel Data Stats */
   .excel-stats-grid {
@@ -809,7 +1027,7 @@
     background-color: #218838;
   }
 
-  /* Enhanced Vibration Analysis Section */
+  /* Vibration Analysis Section */
   .vibration-analysis {
     margin-top: 30px;
     background-color: #2d3748;
@@ -863,27 +1081,58 @@
   /* Temperature Analysis Section */
   .temperature-analysis {
     margin-top: 30px;
-    background-color: #2d3748;
-    border-radius: 8px;
-    padding: 20px;
-    transition: background-color 0.3s;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border-radius: 24px;
+    padding: 30px;
+    transition: all 0.3s;
+    border: 1px solid #4a5568;
   }
   .temperature-analysis.light-mode {
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+    border: 1px solid #d1d5db;
   }
   .temperature-analysis h2 {
     color: #3b82f6;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    transition: color 0.3s;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #4a5568;
+    padding-bottom: 15px;
   }
-  .temperature-analysis.light-mode h2 {
-    color: #2563eb;
+  .temperature-analysis h2 i {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
-  .temperature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+
+  /* Temperature Gauge */
+  .temp-gauge {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .temp-gauge svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .temp-gauge circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+  }
+  .temp-gauge-bg {
+    stroke: #4a5568;
+  }
+  .temp-gauge-fill {
+    stroke: #3b82f6;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 0.5s;
   }
 
   /* Maintenance Schedule Section */
@@ -933,6 +1182,7 @@
     display: flex;
     gap: 10px;
     margin-top: 15px;
+    flex-wrap: wrap;
   }
 
   /* Maintenance Log Section */
@@ -1007,18 +1257,18 @@
       flex: 1 1 100%;
     }
     .sidebar {
-    display: none; /* Hidden by default */
-}
-
-.sidebar.visible {
-    display: block; /* Show when needed */
-}
-
-.main-content.full-width {
-    margin-left: 0;
-    width: 100%;
-}
- 
+      display: none;
+    }
+    .sidebar.visible {
+      display: block;
+    }
+    .main-content.full-width {
+      margin-left: 0;
+      width: 100%;
+    }
+    .temperature-analysis-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
@@ -1032,7 +1282,6 @@
 <div class="top-header">
     <h1 class="text-3xl font-bold">KOSO SMART MAINTENANCE</h1>
 </div>
-
 
 <!-- Sidebar Navigation Section -->
 <div class="sidebar hidden" id="sidebar">
@@ -1066,7 +1315,6 @@
     <a href="#excel-report-section" data-lang-key="liveExcelReport">
       <i class="fas fa-file-excel"></i> Live Excel Report
     </a>
-   
     <a href="#maintenance-schedule-section" data-lang-key="maintenanceSchedule">
       <i class="fas fa-calendar-alt"></i> Maintenance Schedule
     </a>
@@ -1310,57 +1558,253 @@
       </div>
     </div>
    
-    <!-- Temperature Analysis Section -->
+    <!-- Temperature Analysis Section - Redesigned for Better Visual Appeal -->
     <div id="temperature-analysis-section" class="temperature-analysis mt-6">
-      <h2 class="text-xl font-semibold">Temperature Analysis</h2>
-      <div class="temperature-grid">
-        <div class="temperature-chart-card">
-          <h3 class="text-lg font-semibold text-center">Spindle Motor Temperature</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
-              <canvas id="spindle-temp-chart"></canvas>
-            </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('spindle-temp-chart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('spindle-temp-chart', 'Spindle_Temperature')">Download</button>
-            </div>
+      <h2 class="text-xl font-semibold">
+        <i class="fas fa-temperature-high"></i>
+        Temperature Analysis Dashboard
+      </h2>
+      
+      <!-- Temperature Legend -->
+      <div class="temp-legend">
+        <div class="temp-legend-item">
+          <div class="temp-legend-color spindle"></div>
+          <span>Spindle Motor</span>
+        </div>
+        <div class="temp-legend-item">
+          <div class="temp-legend-color x-motor"></div>
+          <span>X-Axis Motor</span>
+        </div>
+        <div class="temp-legend-item">
+          <div class="temp-legend-color z-motor"></div>
+          <span>Z-Axis Motor</span>
+        </div>
+        <div class="temp-legend-item">
+          <div class="temp-legend-color hydraulic"></div>
+          <span>Hydraulic Motor</span>
+        </div>
+      </div>
+
+      <!-- Temperature Summary Cards -->
+      <div class="temp-summary-card">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="text-center">
+            <p class="text-gray-400 text-sm">Average Temperature</p>
+            <p class="text-2xl font-bold text-blue-400" id="avg-temp">0°C</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-400 text-sm">Maximum Temperature</p>
+            <p class="text-2xl font-bold text-red-400" id="max-temp">0°C</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-400 text-sm">Minimum Temperature</p>
+            <p class="text-2xl font-bold text-green-400" id="min-temp">0°C</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-400 text-sm">Critical Alerts</p>
+            <p class="text-2xl font-bold text-yellow-400" id="critical-alerts">0</p>
           </div>
         </div>
-        <div class="temperature-chart-card">
-          <h3 class="text-lg font-semibold text-center">X-Axis Motor Temperature</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
-              <canvas id="x-temp-chart"></canvas>
+      </div>
+
+      <!-- Temperature Cards Grid -->
+      <div class="temperature-analysis-grid">
+        <!-- Spindle Motor Temperature Card -->
+        <div class="temp-card" id="spindle-temp-card">
+          <div class="temp-header">
+            <div class="temp-icon spindle">
+              <i class="fas fa-cog"></i>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('x-temp-chart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('x-temp-chart', 'X_Motor_Temperature')">Download</button>
+            <div>
+              <h3 class="text-xl font-bold">Spindle Motor</h3>
+              <p class="text-sm text-gray-400" id="spindle-temp-status">Normal</p>
             </div>
+            <span id="spindle-temp-badge" class="status-normal">Normal</span>
+          </div>
+          
+          <div class="temp-current spindle" id="spindle-temp-value">0<span class="temp-unit">°C</span></div>
+          
+          <div class="temp-progress-container">
+            <div class="temp-progress-bar spindle" id="spindle-temp-progress" style="width: 0%"></div>
+          </div>
+          
+          <div class="temp-thresholds">
+            <span class="temp-threshold normal">Normal ≤60°C</span>
+            <span class="temp-threshold warning">Warning 61-70°C</span>
+            <span class="temp-threshold abnormal">Abnormal >70°C</span>
+          </div>
+          
+          <div class="temp-stats">
+            <div class="temp-stat">
+              <div class="temp-stat-label">Max</div>
+              <div class="temp-stat-value spindle" id="spindle-temp-max">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Min</div>
+              <div class="temp-stat-value spindle" id="spindle-temp-min">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Avg</div>
+              <div class="temp-stat-value spindle" id="spindle-temp-avg">0°C</div>
+            </div>
+          </div>
+          
+          <div class="temp-chart-wrapper">
+            <canvas id="spindle-temp-chart"></canvas>
           </div>
         </div>
-        <div class="temperature-chart-card">
-          <h3 class="text-lg font-semibold text-center">Z-Axis Motor Temperature</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
-              <canvas id="z-temp-chart"></canvas>
+
+        <!-- X-Axis Motor Temperature Card -->
+        <div class="temp-card" id="x-temp-card">
+          <div class="temp-header">
+            <div class="temp-icon x-motor">
+              <i class="fas fa-arrows-alt-h"></i>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('z-temp-chart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('z-temp-chart', 'Z_Motor_Temperature')">Download</button>
+            <div>
+              <h3 class="text-xl font-bold">X-Axis Motor</h3>
+              <p class="text-sm text-gray-400" id="x-temp-status">Normal</p>
             </div>
+            <span id="x-temp-badge" class="status-normal">Normal</span>
+          </div>
+          
+          <div class="temp-current x-motor" id="x-temp-value">0<span class="temp-unit">°C</span></div>
+          
+          <div class="temp-progress-container">
+            <div class="temp-progress-bar x-motor" id="x-temp-progress" style="width: 0%"></div>
+          </div>
+          
+          <div class="temp-thresholds">
+            <span class="temp-threshold normal">Normal ≤60°C</span>
+            <span class="temp-threshold warning">Warning 61-70°C</span>
+            <span class="temp-threshold abnormal">Abnormal >70°C</span>
+          </div>
+          
+          <div class="temp-stats">
+            <div class="temp-stat">
+              <div class="temp-stat-label">Max</div>
+              <div class="temp-stat-value x-motor" id="x-temp-max">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Min</div>
+              <div class="temp-stat-value x-motor" id="x-temp-min">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Avg</div>
+              <div class="temp-stat-value x-motor" id="x-temp-avg">0°C</div>
+            </div>
+          </div>
+          
+          <div class="temp-chart-wrapper">
+            <canvas id="x-temp-chart"></canvas>
           </div>
         </div>
-        <div class="temperature-chart-card">
-          <h3 class="text-lg font-semibold text-center">Hydraulic Motor Temperature</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
-              <canvas id="hydraulic-temp-chart"></canvas>
+
+        <!-- Z-Axis Motor Temperature Card -->
+        <div class="temp-card" id="z-temp-card">
+          <div class="temp-header">
+            <div class="temp-icon z-motor">
+              <i class="fas fa-arrows-alt-v"></i>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('hydraulic-temp-chart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('hydraulic-temp-chart', 'Hydraulic_Temperature')">Download</button>
+            <div>
+              <h3 class="text-xl font-bold">Z-Axis Motor</h3>
+              <p class="text-sm text-gray-400" id="z-temp-status">Normal</p>
+            </div>
+            <span id="z-temp-badge" class="status-normal">Normal</span>
+          </div>
+          
+          <div class="temp-current z-motor" id="z-temp-value">0<span class="temp-unit">°C</span></div>
+          
+          <div class="temp-progress-container">
+            <div class="temp-progress-bar z-motor" id="z-temp-progress" style="width: 0%"></div>
+          </div>
+          
+          <div class="temp-thresholds">
+            <span class="temp-threshold normal">Normal ≤60°C</span>
+            <span class="temp-threshold warning">Warning 61-70°C</span>
+            <span class="temp-threshold abnormal">Abnormal >70°C</span>
+          </div>
+          
+          <div class="temp-stats">
+            <div class="temp-stat">
+              <div class="temp-stat-label">Max</div>
+              <div class="temp-stat-value z-motor" id="z-temp-max">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Min</div>
+              <div class="temp-stat-value z-motor" id="z-temp-min">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Avg</div>
+              <div class="temp-stat-value z-motor" id="z-temp-avg">0°C</div>
             </div>
           </div>
+          
+          <div class="temp-chart-wrapper">
+            <canvas id="z-temp-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- Hydraulic Motor Temperature Card -->
+        <div class="temp-card" id="hydraulic-temp-card">
+          <div class="temp-header">
+            <div class="temp-icon hydraulic">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Hydraulic Motor</h3>
+              <p class="text-sm text-gray-400" id="hydraulic-temp-status">Normal</p>
+            </div>
+            <span id="hydraulic-temp-badge" class="status-normal">Normal</span>
+          </div>
+          
+          <div class="temp-current hydraulic" id="hydraulic-temp-value">0<span class="temp-unit">°C</span></div>
+          
+          <div class="temp-progress-container">
+            <div class="temp-progress-bar hydraulic" id="hydraulic-temp-progress" style="width: 0%"></div>
+          </div>
+          
+          <div class="temp-thresholds">
+            <span class="temp-threshold normal">Normal ≤60°C</span>
+            <span class="temp-threshold warning">Warning 61-70°C</span>
+            <span class="temp-threshold abnormal">Abnormal >70°C</span>
+          </div>
+          
+          <div class="temp-stats">
+            <div class="temp-stat">
+              <div class="temp-stat-label">Max</div>
+              <div class="temp-stat-value hydraulic" id="hydraulic-temp-max">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Min</div>
+              <div class="temp-stat-value hydraulic" id="hydraulic-temp-min">0°C</div>
+            </div>
+            <div class="temp-stat">
+              <div class="temp-stat-label">Avg</div>
+              <div class="temp-stat-value hydraulic" id="hydraulic-temp-avg">0°C</div>
+            </div>
+          </div>
+          
+          <div class="temp-chart-wrapper">
+            <canvas id="hydraulic-temp-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temperature Alerts Section -->
+      <div id="temp-alerts-container" class="mt-4" style="display: none;">
+        <h3 class="text-lg font-semibold mb-2">Temperature Alerts</h3>
+        <div id="temp-alerts-list"></div>
+      </div>
+
+      <!-- Combined Temperature Trend Chart -->
+      <div class="temp-summary-card mt-4">
+        <h3 class="text-lg font-semibold mb-3">Temperature Trends (All Motors)</h3>
+        <div class="chart-wrapper" style="height: 300px;">
+          <canvas id="combined-temp-chart"></canvas>
+        </div>
+        <div class="chart-actions">
+          <button class="chart-btn" onclick="resetZoom('combined-temp-chart')">Reset Zoom</button>
+          <button class="chart-btn" onclick="downloadChart('combined-temp-chart', 'Temperature_Trends')">Download</button>
         </div>
       </div>
     </div>
@@ -1838,8 +2282,6 @@
         </div>
       </div>
     </div>
-   
-    
    
     <!-- Maintenance Schedule Section -->
     <div id="maintenance-schedule-section" class="maintenance-schedule mt-6">
@@ -2351,6 +2793,7 @@ const translations = {
     maintenanceKPIs: "维护KPI"
   }
 };
+
 // ======================
 // Utility Functions
 // ======================
@@ -2371,13 +2814,11 @@ function formatTimestamp(timestamp) {
 
 function parseNumber(value) {
     if (value === null || value === undefined) {
-        console.warn(`parseNumber received null/undefined value:`, value);
         return '0.00';
     }
     const cleanedValue = value.toString().replace(/[^0-9.-]/g, '');
     const parsed = parseFloat(cleanedValue);
     if (isNaN(parsed)) {
-        console.warn(`parseNumber failed to parse value:`, value);
         return '0.00';
     }
     return parsed.toFixed(2);
@@ -2440,6 +2881,9 @@ function toggleTheme() {
     document.querySelector('.excel-chart-container').classList.toggle('light-mode');
     document.querySelector('.vibration-analysis').classList.toggle('light-mode');
     document.querySelector('.temperature-analysis').classList.toggle('light-mode');
+    document.querySelectorAll('.temp-card').forEach(card => card.classList.toggle('light-mode'));
+    document.querySelectorAll('.temp-header').forEach(header => header.classList.toggle('light-mode'));
+    document.querySelector('.temp-summary-card').classList.toggle('light-mode');
     document.querySelector('.maintenance-schedule').classList.toggle('light-mode');
     document.querySelector('.maintenance-log').classList.toggle('light-mode');
     
@@ -2470,6 +2914,7 @@ function updateCurrentTime() {
 
 updateCurrentTime();
 setInterval(updateCurrentTime, 1000);
+
 // ======================
 // Navigation Functions
 // ======================
@@ -2495,7 +2940,6 @@ function showSection(sectionId) {
         }
     });
 
-   
     if (sectionId === 'maintenance-schedule-section') {
         loadMaintenanceSchedule();
     }
@@ -2562,13 +3006,13 @@ const THRESHOLDS = {
 };
 
 const VIBRATION_THRESHOLDS = {
-    normal: 2.5, // m/s²
+    normal: 2.5,
     warning: 4.0,
     abnormal: 6.0
 };
 
 const TEMPERATURE_THRESHOLDS = {
-    normal: 60, // °C
+    normal: 60,
     warning: 70,
     abnormal: 80
 };
@@ -2685,6 +3129,7 @@ function startDataFetch() {
             currentData[prefix].y = [];
             currentData[prefix].b = [];
             currentData[prefix].timestamps = [];
+            currentData[prefix].temp = [];
             cumulativeData[prefix].power = 0;
             cumulativeData[prefix].kw = 0;
             cumulativeData[prefix].energy = 0;
@@ -2768,7 +3213,8 @@ function startDataFetch() {
                 }
 
                 // Update temperature data for all components
-                currentData[prefix].temp.push(parseNumber(componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 0));
+                const tempValue = parseNumber(componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 0);
+                currentData[prefix].temp.push(tempValue);
                 if (currentData[prefix].temp.length > MAX_DATA_POINTS) {
                     currentData[prefix].temp.shift();
                 }
@@ -2827,7 +3273,7 @@ function startDataFetch() {
                     document.getElementById('spindle-velocity').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0)} mm/s`;
                     document.getElementById('spindle-vib-peak').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0)} m/s²`;
                 }
-                document.getElementById(`${prefix}-temp`).innerText = `${parseNumber(componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 0)}°C`;
+                document.getElementById(`${prefix}-temp`).innerText = `${tempValue}°C`;
                 document.getElementById(`${prefix}-cur-r`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['1_R_Phase'] || 0)} A`;
                 document.getElementById(`${prefix}-cur-y`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['2_Y_Phase'] || 0)} A`;
                 document.getElementById(`${prefix}-cur-b`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['3_B_Phase'] || 0)} A`;
@@ -2854,8 +3300,8 @@ function startDataFetch() {
                     vibY: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0),
                     vibZ: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0),
                     velocity: parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0),
-                    VibPeak: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration || 0),
-                    temp: parseNumber(componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 0),
+                    VibPeak: parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0),
+                    temp: tempValue,
                     curR, curY, curB, status, timestamp
                 });
             });
@@ -2896,6 +3342,569 @@ function startDataFetch() {
 }
 
 // ======================
+// Temperature Chart Functions
+// ======================
+
+function updateTemperatureCharts() {
+    updateSpindleTempChart();
+    updateXTempChart();
+    updateZTempChart();
+    updateHydraulicTempChart();
+    updateCombinedTempChart();
+    updateTemperatureStats();
+}
+
+function updateSpindleTempChart() {
+    const ctx = document.getElementById('spindle-temp-chart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.spindleTempChart && typeof window.spindleTempChart.destroy === 'function') {
+        window.spindleTempChart.destroy();
+    }
+
+    const labels = currentData.spindle.timestamps;
+    const data = currentData.spindle.temp;
+
+    const isLightMode = document.body.classList.contains('light-mode');
+    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
+    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
+
+    window.spindleTempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Spindle Temperature (°C)',
+                data: data,
+                borderColor: '#ef4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                fill: true,
+                tension: 0.1,
+                borderWidth: 2,
+                pointBackgroundColor: '#ef4444',
+                pointBorderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                },
+                tooltip: {
+                    mode: 'index',
+                    callbacks: {
+                        label: function(context) {
+                            return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    ticks: { color: textColor },
+                    grid: { color: gridColor }
+                },
+                x: {
+                    ticks: { 
+                        color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: gridColor }
+                }
+            }
+        }
+    });
+
+    // Update temperature display
+    const currentTemp = data.length > 0 ? data[data.length - 1] : 0;
+    document.getElementById('spindle-temp-value').innerHTML = `${currentTemp.toFixed(2)}<span class="temp-unit">°C</span>`;
+    
+    // Update progress bar
+    const progressPercent = (currentTemp / 100) * 100;
+    document.getElementById('spindle-temp-progress').style.width = `${Math.min(progressPercent, 100)}%`;
+    
+    // Update status
+    updateTemperatureStatus('spindle', currentTemp);
+    
+    // Update min/max/avg
+    if (data.length > 0) {
+        document.getElementById('spindle-temp-max').innerText = `${Math.max(...data).toFixed(2)}°C`;
+        document.getElementById('spindle-temp-min').innerText = `${Math.min(...data).toFixed(2)}°C`;
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        document.getElementById('spindle-temp-avg').innerText = `${avg.toFixed(2)}°C`;
+    }
+}
+
+function updateXTempChart() {
+    const ctx = document.getElementById('x-temp-chart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.xTempChart && typeof window.xTempChart.destroy === 'function') {
+        window.xTempChart.destroy();
+    }
+
+    const labels = currentData.x.timestamps;
+    const data = currentData.x.temp;
+
+    const isLightMode = document.body.classList.contains('light-mode');
+    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
+    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
+
+    window.xTempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'X-Axis Temperature (°C)',
+                data: data,
+                borderColor: '#f59e0b',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                fill: true,
+                tension: 0.1,
+                borderWidth: 2,
+                pointBackgroundColor: '#f59e0b',
+                pointBorderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                },
+                tooltip: {
+                    mode: 'index',
+                    callbacks: {
+                        label: function(context) {
+                            return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    ticks: { color: textColor },
+                    grid: { color: gridColor }
+                },
+                x: {
+                    ticks: { 
+                        color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: gridColor }
+                }
+            }
+        }
+    });
+
+    // Update temperature display
+    const currentTemp = data.length > 0 ? data[data.length - 1] : 0;
+    document.getElementById('x-temp-value').innerHTML = `${currentTemp.toFixed(2)}<span class="temp-unit">°C</span>`;
+    
+    // Update progress bar
+    const progressPercent = (currentTemp / 100) * 100;
+    document.getElementById('x-temp-progress').style.width = `${Math.min(progressPercent, 100)}%`;
+    
+    // Update status
+    updateTemperatureStatus('x', currentTemp);
+    
+    // Update min/max/avg
+    if (data.length > 0) {
+        document.getElementById('x-temp-max').innerText = `${Math.max(...data).toFixed(2)}°C`;
+        document.getElementById('x-temp-min').innerText = `${Math.min(...data).toFixed(2)}°C`;
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        document.getElementById('x-temp-avg').innerText = `${avg.toFixed(2)}°C`;
+    }
+}
+
+function updateZTempChart() {
+    const ctx = document.getElementById('z-temp-chart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.zTempChart && typeof window.zTempChart.destroy === 'function') {
+        window.zTempChart.destroy();
+    }
+
+    const labels = currentData.z.timestamps;
+    const data = currentData.z.temp;
+
+    const isLightMode = document.body.classList.contains('light-mode');
+    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
+    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
+
+    window.zTempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Z-Axis Temperature (°C)',
+                data: data,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true,
+                tension: 0.1,
+                borderWidth: 2,
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                },
+                tooltip: {
+                    mode: 'index',
+                    callbacks: {
+                        label: function(context) {
+                            return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    ticks: { color: textColor },
+                    grid: { color: gridColor }
+                },
+                x: {
+                    ticks: { 
+                        color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: gridColor }
+                }
+            }
+        }
+    });
+
+    // Update temperature display
+    const currentTemp = data.length > 0 ? data[data.length - 1] : 0;
+    document.getElementById('z-temp-value').innerHTML = `${currentTemp.toFixed(2)}<span class="temp-unit">°C</span>`;
+    
+    // Update progress bar
+    const progressPercent = (currentTemp / 100) * 100;
+    document.getElementById('z-temp-progress').style.width = `${Math.min(progressPercent, 100)}%`;
+    
+    // Update status
+    updateTemperatureStatus('z', currentTemp);
+    
+    // Update min/max/avg
+    if (data.length > 0) {
+        document.getElementById('z-temp-max').innerText = `${Math.max(...data).toFixed(2)}°C`;
+        document.getElementById('z-temp-min').innerText = `${Math.min(...data).toFixed(2)}°C`;
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        document.getElementById('z-temp-avg').innerText = `${avg.toFixed(2)}°C`;
+    }
+}
+
+function updateHydraulicTempChart() {
+    const ctx = document.getElementById('hydraulic-temp-chart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.hydraulicTempChart && typeof window.hydraulicTempChart.destroy === 'function') {
+        window.hydraulicTempChart.destroy();
+    }
+
+    const labels = currentData.hydraulic.timestamps;
+    const data = currentData.hydraulic.temp;
+
+    const isLightMode = document.body.classList.contains('light-mode');
+    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
+    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
+
+    window.hydraulicTempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Hydraulic Temperature (°C)',
+                data: data,
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                fill: true,
+                tension: 0.1,
+                borderWidth: 2,
+                pointBackgroundColor: '#10b981',
+                pointBorderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                },
+                tooltip: {
+                    mode: 'index',
+                    callbacks: {
+                        label: function(context) {
+                            return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    ticks: { color: textColor },
+                    grid: { color: gridColor }
+                },
+                x: {
+                    ticks: { 
+                        color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: gridColor }
+                }
+            }
+        }
+    });
+
+    // Update temperature display
+    const currentTemp = data.length > 0 ? data[data.length - 1] : 0;
+    document.getElementById('hydraulic-temp-value').innerHTML = `${currentTemp.toFixed(2)}<span class="temp-unit">°C</span>`;
+    
+    // Update progress bar
+    const progressPercent = (currentTemp / 100) * 100;
+    document.getElementById('hydraulic-temp-progress').style.width = `${Math.min(progressPercent, 100)}%`;
+    
+    // Update status
+    updateTemperatureStatus('hydraulic', currentTemp);
+    
+    // Update min/max/avg
+    if (data.length > 0) {
+        document.getElementById('hydraulic-temp-max').innerText = `${Math.max(...data).toFixed(2)}°C`;
+        document.getElementById('hydraulic-temp-min').innerText = `${Math.min(...data).toFixed(2)}°C`;
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        document.getElementById('hydraulic-temp-avg').innerText = `${avg.toFixed(2)}°C`;
+    }
+}
+
+function updateCombinedTempChart() {
+    const ctx = document.getElementById('combined-temp-chart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.combinedTempChart && typeof window.combinedTempChart.destroy === 'function') {
+        window.combinedTempChart.destroy();
+    }
+
+    const labels = currentData.spindle.timestamps;
+    
+    const isLightMode = document.body.classList.contains('light-mode');
+    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
+    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
+
+    window.combinedTempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Spindle Motor',
+                    data: currentData.spindle.temp,
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    fill: false,
+                    tension: 0.1,
+                    borderWidth: 2
+                },
+                {
+                    label: 'X-Axis Motor',
+                    data: currentData.x.temp,
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    fill: false,
+                    tension: 0.1,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Z-Axis Motor',
+                    data: currentData.z.temp,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: false,
+                    tension: 0.1,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Hydraulic Motor',
+                    data: currentData.hydraulic.temp,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: false,
+                    tension: 0.1,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.parsed.y.toFixed(2)}°C`;
+                        }
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    ticks: { color: textColor },
+                    grid: { color: gridColor }
+                },
+                x: {
+                    title: { display: true, text: 'Time', color: textColor },
+                    ticks: { 
+                        color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: gridColor }
+                }
+            }
+        }
+    });
+}
+
+function updateTemperatureStats() {
+    const allTemps = [
+        ...currentData.spindle.temp,
+        ...currentData.x.temp,
+        ...currentData.z.temp,
+        ...currentData.hydraulic.temp
+    ].filter(temp => !isNaN(temp));
+    
+    if (allTemps.length === 0) return;
+    
+    const avgTemp = allTemps.reduce((a, b) => a + b, 0) / allTemps.length;
+    const maxTemp = Math.max(...allTemps);
+    const minTemp = Math.min(...allTemps);
+    
+    document.getElementById('avg-temp').innerText = `${avgTemp.toFixed(2)}°C`;
+    document.getElementById('max-temp').innerText = `${maxTemp.toFixed(2)}°C`;
+    document.getElementById('min-temp').innerText = `${minTemp.toFixed(2)}°C`;
+    
+    // Count critical alerts
+    const criticalCount = allTemps.filter(temp => temp > TEMPERATURE_THRESHOLDS.warning).length;
+    document.getElementById('critical-alerts').innerText = criticalCount;
+    
+    // Update temperature trend summary
+    if (maxTemp > TEMPERATURE_THRESHOLDS.abnormal) {
+        document.getElementById('temperature-trend-summary').innerText = `Critical: ${maxTemp.toFixed(2)}°C detected`;
+    } else if (maxTemp > TEMPERATURE_THRESHOLDS.warning) {
+        document.getElementById('temperature-trend-summary').innerText = `Warning: ${maxTemp.toFixed(2)}°C detected`;
+    } else {
+        document.getElementById('temperature-trend-summary').innerText = 'Within normal ranges';
+    }
+    
+    // Show/hide alerts container
+    const alertsContainer = document.getElementById('temp-alerts-container');
+    const alertsList = document.getElementById('temp-alerts-list');
+    
+    if (criticalCount > 0) {
+        alertsContainer.style.display = 'block';
+        alertsList.innerHTML = '';
+        
+        if (maxTemp > TEMPERATURE_THRESHOLDS.abnormal) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'temp-alert abnormal';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle text-red-400 mr-3"></i>
+                <span>Critical temperature detected! Maximum: ${maxTemp.toFixed(2)}°C</span>
+            `;
+            alertsList.appendChild(alertDiv);
+        } else if (maxTemp > TEMPERATURE_THRESHOLDS.warning) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'temp-alert warning';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-circle text-yellow-400 mr-3"></i>
+                <span>High temperature warning: ${maxTemp.toFixed(2)}°C</span>
+            `;
+            alertsList.appendChild(alertDiv);
+        }
+    } else {
+        alertsContainer.style.display = 'none';
+    }
+}
+
+function updateTemperatureStatus(component, temp) {
+    let status = 'Normal';
+    let badgeClass = 'status-normal';
+    let statusText = 'Normal';
+    
+    if (temp > TEMPERATURE_THRESHOLDS.abnormal) {
+        status = 'Abnormal';
+        badgeClass = 'status-abnormal';
+        statusText = 'Critical';
+    } else if (temp > TEMPERATURE_THRESHOLDS.warning) {
+        status = 'Warning';
+        badgeClass = 'status-warning';
+        statusText = 'Warning';
+    }
+    
+    const badge = document.getElementById(`${component}-temp-badge`);
+    if (badge) {
+        badge.className = badgeClass;
+        badge.innerText = status;
+    }
+    
+    const statusElement = document.getElementById(`${component}-temp-status`);
+    if (statusElement) {
+        statusElement.innerText = statusText;
+    }
+}
+
+// ======================
 // Chart Functions
 // ======================
 
@@ -2912,24 +3921,10 @@ function updateVibrationCharts() {
     updateVibrationVelocityChart();
 }
 
-function updateTemperatureCharts() {
-    updateSpindleTempChart();
-    updateXTempChart();
-    updateZTempChart();
-    updateHydraulicTempChart();
-}
-
-function updateComponentCharts() {
-    ['spindle', 'x', 'z', 'hydraulic'].forEach(prefix => {
-        updateChart(prefix);
-    });
-}
-
 function updateVibrationXChart() {
     const ctx = document.getElementById('vibration-x-chart')?.getContext('2d');
     if (!ctx || currentData.spindle.timestamps.length === 0) return;
 
-    // Destroy existing chart if it exists
     if (window.vibrationXChart && typeof window.vibrationXChart.destroy === 'function') {
         window.vibrationXChart.destroy();
     }
@@ -2960,9 +3955,7 @@ function updateVibrationXChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -2984,24 +3977,15 @@ function updateVibrationXChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { 
-                        display: true, 
-                        text: 'Acceleration (m/s²)',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Acceleration (m/s²)', color: textColor },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
                 x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Time', color: textColor },
                     ticks: { 
                         color: textColor,
                         callback: function(value, index) {
-                            // Only show every 5th label to prevent crowding
                             return index % 5 === 0 ? value : '';
                         }
                     },
@@ -3046,9 +4030,7 @@ function updateVibrationYChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -3070,20 +4052,12 @@ function updateVibrationYChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { 
-                        display: true, 
-                        text: 'Acceleration (m/s²)',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Acceleration (m/s²)', color: textColor },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
                 x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Time', color: textColor },
                     ticks: { 
                         color: textColor,
                         callback: function(value, index) {
@@ -3131,9 +4105,7 @@ function updateVibrationZChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -3155,20 +4127,12 @@ function updateVibrationZChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { 
-                        display: true, 
-                        text: 'Acceleration (m/s²)',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Acceleration (m/s²)', color: textColor },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
                 x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Time', color: textColor },
                     ticks: { 
                         color: textColor,
                         callback: function(value, index) {
@@ -3216,9 +4180,7 @@ function updateVibrationVelocityChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -3240,20 +4202,12 @@ function updateVibrationVelocityChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { 
-                        display: true, 
-                        text: 'Velocity (mm/s)',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Velocity (mm/s)', color: textColor },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
                 x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
+                    title: { display: true, text: 'Time', color: textColor },
                     ticks: { 
                         color: textColor,
                         callback: function(value, index) {
@@ -3267,343 +4221,9 @@ function updateVibrationVelocityChart() {
     });
 }
 
-function updateSpindleTempChart() {
-    const ctx = document.getElementById('spindle-temp-chart')?.getContext('2d');
-    if (!ctx || currentData.spindle.timestamps.length === 0) return;
-
-    if (window.spindleTempChart && typeof window.spindleTempChart.destroy === 'function') {
-        window.spindleTempChart.destroy();
-    }
-
-    const labels = currentData.spindle.timestamps;
-    const data = currentData.spindle.temp;
-
-    const isLightMode = document.body.classList.contains('light-mode');
-    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
-    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
-
-    window.spindleTempChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Temperature (°C)',
-                data: data,
-                borderColor: '#ef4444',
-                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                fill: true,
-                tension: 0.1,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Spindle Temperature',
-                    color: textColor
-                },
-                zoom: {
-                    zoom: {
-                        wheel: { enabled: true },
-                        pinch: { enabled: true },
-                        mode: 'xy'
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    title: { 
-                        display: true, 
-                        text: 'Temperature (°C)',
-                        color: textColor
-                    },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
-                },
-                x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
-                    ticks: { 
-                        color: textColor,
-                        callback: function(value, index) {
-                            return index % 5 === 0 ? value : '';
-                        }
-                    },
-                    grid: { color: gridColor }
-                }
-            }
-        }
-    });
-}
-
-function updateXTempChart() {
-    const ctx = document.getElementById('x-temp-chart')?.getContext('2d');
-    if (!ctx || currentData.x.timestamps.length === 0) return;
-
-    if (window.xTempChart && typeof window.xTempChart.destroy === 'function') {
-        window.xTempChart.destroy();
-    }
-
-    const labels = currentData.x.timestamps;
-    const data = currentData.x.temp;
-
-    const isLightMode = document.body.classList.contains('light-mode');
-    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
-    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
-
-    window.xTempChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Temperature (°C)',
-                data: data,
-                borderColor: '#f59e0b',
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                fill: true,
-                tension: 0.1,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'X-Axis Motor Temperature',
-                    color: textColor
-                },
-                zoom: {
-                    zoom: {
-                        wheel: { enabled: true },
-                        pinch: { enabled: true },
-                        mode: 'xy'
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    title: { 
-                        display: true, 
-                        text: 'Temperature (°C)',
-                        color: textColor
-                    },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
-                },
-                x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
-                    ticks: { 
-                        color: textColor,
-                        callback: function(value, index) {
-                            return index % 5 === 0 ? value : '';
-                        }
-                    },
-                    grid: { color: gridColor }
-                }
-            }
-        }
-    });
-}
-
-function updateZTempChart() {
-    const ctx = document.getElementById('z-temp-chart')?.getContext('2d');
-    if (!ctx || currentData.z.timestamps.length === 0) return;
-
-    if (window.zTempChart && typeof window.zTempChart.destroy === 'function') {
-        window.zTempChart.destroy();
-    }
-
-    const labels = currentData.z.timestamps;
-    const data = currentData.z.temp;
-
-    const isLightMode = document.body.classList.contains('light-mode');
-    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
-    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
-
-    window.zTempChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Temperature (°C)',
-                data: data,
-                borderColor: '#3b82f6',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                fill: true,
-                tension: 0.1,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Z-Axis Motor Temperature',
-                    color: textColor
-                },
-                zoom: {
-                    zoom: {
-                        wheel: { enabled: true },
-                        pinch: { enabled: true },
-                        mode: 'xy'
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    title: { 
-                        display: true, 
-                        text: 'Temperature (°C)',
-                        color: textColor
-                    },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
-                },
-                x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
-                    ticks: { 
-                        color: textColor,
-                        callback: function(value, index) {
-                            return index % 5 === 0 ? value : '';
-                        }
-                    },
-                    grid: { color: gridColor }
-                }
-            }
-        }
-    });
-}
-
-function updateHydraulicTempChart() {
-    const ctx = document.getElementById('hydraulic-temp-chart')?.getContext('2d');
-    if (!ctx || currentData.hydraulic.timestamps.length === 0) return;
-
-    if (window.hydraulicTempChart && typeof window.hydraulicTempChart.destroy === 'function') {
-        window.hydraulicTempChart.destroy();
-    }
-
-    const labels = currentData.hydraulic.timestamps;
-    const data = currentData.hydraulic.temp;
-
-    const isLightMode = document.body.classList.contains('light-mode');
-    const textColor = isLightMode ? '#1f2937' : '#d1d5db';
-    const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
-
-    window.hydraulicTempChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Temperature (°C)',
-                data: data,
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                fill: true,
-                tension: 0.1,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Hydraulic Motor Temperature',
-                    color: textColor
-                },
-                zoom: {
-                    zoom: {
-                        wheel: { enabled: true },
-                        pinch: { enabled: true },
-                        mode: 'xy'
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    title: { 
-                        display: true, 
-                        text: 'Temperature (°C)',
-                        color: textColor
-                    },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
-                },
-                x: {
-                    title: { 
-                        display: true, 
-                        text: 'Time',
-                        color: textColor
-                    },
-                    ticks: { 
-                        color: textColor,
-                        callback: function(value, index) {
-                            return index % 5 === 0 ? value : '';
-                        }
-                    },
-                    grid: { color: gridColor }
-                }
-            }
-        }
+function updateComponentCharts() {
+    ['spindle', 'x', 'z', 'hydraulic'].forEach(prefix => {
+        updateChart(prefix);
     });
 }
 
@@ -3701,9 +4321,7 @@ function updateChart(prefix) {
                     position: 'right',
                     labels: {
                         color: '#d1d5db',
-                        font: {
-                            size: 11
-                        },
+                        font: { size: 11 },
                         padding: 20
                     }
                 },
@@ -3716,7 +4334,7 @@ function updateChart(prefix) {
                                 const suffix = label.includes('Current') ? 'A' :
                                              label.includes('Load') ? '%' :
                                              label.includes('Temperature') ? '°C' : 'm/s²';
-                                label += context.parsed + ' ' + suffix;
+                                label += context.parsed.toFixed(2) + ' ' + suffix;
                             }
                             return label;
                         }
@@ -3775,9 +4393,7 @@ function updateChart(prefix) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: {
-                        color: '#d1d5db'
-                    }
+                    labels: { color: '#d1d5db' }
                 },
                 tooltip: {
                     mode: 'index',
@@ -3818,7 +4434,6 @@ function updateChart(prefix) {
         }
     });
    
-    // Add this at the end of the function:
     if (prefix === 'x') {
         updateXChart();
     } else if (prefix === 'z') {
@@ -3835,12 +4450,10 @@ function updateXChart() {
     const ctx = document.getElementById('x-chart')?.getContext('2d');
     if (!ctx) return;
 
-    // Destroy existing chart if it exists
     if (window.xChart && typeof window.xChart.destroy === 'function') {
         window.xChart.destroy();
     }
 
-    // Get current values
     const curR = parseFloat(document.getElementById('x-cur-r').innerText || 0);
     const curY = parseFloat(document.getElementById('x-cur-y').innerText || 0);
     const curB = parseFloat(document.getElementById('x-cur-b').innerText || 0);
@@ -3848,7 +4461,6 @@ function updateXChart() {
     const load = parseFloat(document.getElementById('x-load').innerText || 0);
     const temp = parseFloat(document.getElementById('x-temp').innerText || 0);
 
-    // Update display values
     document.getElementById('x-max-current').innerText = `${maxCurrent.toFixed(2)} A`;
     document.getElementById('x-load-display').innerText = `${load.toFixed(2)}%`;
     document.getElementById('x-temp-display').innerText = `${temp.toFixed(2)}°C`;
@@ -3884,12 +4496,7 @@ function updateXChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: textColor
-                    }
-                },
+                legend: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
@@ -3908,20 +4515,12 @@ function updateXChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: {
-                        color: textColor
-                    },
-                    grid: {
-                        color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'
-                    }
+                    ticks: { color: textColor },
+                    grid: { color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)' }
                 },
                 x: {
-                    ticks: {
-                        color: textColor
-                    },
-                    grid: {
-                        color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'
-                    }
+                    ticks: { color: textColor },
+                    grid: { color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)' }
                 }
             }
         }
@@ -3932,12 +4531,10 @@ function updateZChart() {
     const ctx = document.getElementById('z-chart')?.getContext('2d');
     if (!ctx) return;
 
-    // Destroy existing chart if it exists
     if (window.zChart && typeof window.zChart.destroy === 'function') {
         window.zChart.destroy();
     }
 
-    // Get current values
     const curR = parseFloat(document.getElementById('z-cur-r').innerText || 0);
     const curY = parseFloat(document.getElementById('z-cur-y').innerText || 0);
     const curB = parseFloat(document.getElementById('z-cur-b').innerText || 0);
@@ -3945,7 +4542,6 @@ function updateZChart() {
     const load = parseFloat(document.getElementById('z-load').innerText || 0);
     const temp = parseFloat(document.getElementById('z-temp').innerText || 0);
 
-    // Update display values
     document.getElementById('z-max-current').innerText = `${maxCurrent.toFixed(2)} A`;
     document.getElementById('z-load-display').innerText = `${load.toFixed(2)}%`;
     document.getElementById('z-temp-display').innerText = `${temp.toFixed(2)}°C`;
@@ -3981,12 +4577,7 @@ function updateZChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: textColor
-                    }
-                },
+                legend: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
@@ -4005,20 +4596,12 @@ function updateZChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: {
-                        color: textColor
-                    },
-                    grid: {
-                        color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'
-                    }
+                    ticks: { color: textColor },
+                    grid: { color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)' }
                 },
                 x: {
-                    ticks: {
-                        color: textColor
-                    },
-                    grid: {
-                        color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'
-                    }
+                    ticks: { color: textColor },
+                    grid: { color: isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)' }
                 }
             }
         }
@@ -4215,9 +4798,7 @@ function updateExcelTrendChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -4226,17 +4807,13 @@ function updateExcelTrendChart() {
                 },
                 zoom: {
                     zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'xy',
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
                     },
                     pan: {
                         enabled: true,
-                        mode: 'xy',
+                        mode: 'xy'
                     }
                 }
             },
@@ -4441,7 +5018,6 @@ function exportToExcel() {
 // Maintenance Functions
 // ======================
 
-
 function loadMaintenanceSchedule() {
     if (!selectedMachine) {
         alert('Please select a machine first');
@@ -4561,7 +5137,7 @@ function markMaintenanceComplete(task) {
             logRef.set({
                 task: taskName,
                 timestamp: now,
-                performedBy: 'Operator', // In a real app, this would be the logged-in user
+                performedBy: 'Operator',
                 notes: 'Completed as scheduled'
             });
            
@@ -4757,9 +5333,7 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: textColor
-                    }
+                    labels: { color: textColor }
                 },
                 title: {
                     display: true,
@@ -4768,17 +5342,13 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
                 },
                 zoom: {
                     zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'xy',
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
                     },
                     pan: {
                         enabled: true,
-                        mode: 'xy',
+                        mode: 'xy'
                     }
                 }
             },
@@ -4794,7 +5364,6 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
                     ticks: { 
                         color: textColor,
                         callback: function(value, index) {
-                            // Only show every 5th label to prevent crowding
                             return index % 5 === 0 ? value : '';
                         }
                     },
@@ -5201,8 +5770,7 @@ function initializeEventListeners() {
         updateLanguage(e.target.value);
     });   
 
-     
-        // Sidebar navigation
+    // Sidebar navigation
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -5231,13 +5799,6 @@ function initializeEventListeners() {
         btn.addEventListener('click', () => selectMachine(btn.dataset.machine));
     });
 
-    // Excel report buttons
-    document.getElementById('refresh-excel-btn').addEventListener('click', refreshExcelData);
-    document.getElementById('filter-excel-btn').addEventListener('click', filterExcelData);
-    document.getElementById('reset-excel-btn').addEventListener('click', resetExcelFilters);
-    document.getElementById('export-excel-btn').addEventListener('click', exportToExcel);
-    document.getElementById('export-summary-btn').addEventListener('click', generateExcelSummary);
-
     // Historical data buttons
     document.getElementById('filter-historical-btn').addEventListener('click', filterHistoricalData);
     document.getElementById('export-historical-btn').addEventListener('click', exportHistoricalToExcel);
@@ -5248,24 +5809,12 @@ function initializeEventListeners() {
     document.getElementById('e-stop-btn').addEventListener('click', toggleEStop);
     document.getElementById('show-alerts-btn').addEventListener('click', toggleAlertHistory);
 
-    // Maintenance task buttons
-    document.getElementById('complete-lubrication').addEventListener('click', () => markMaintenanceComplete('lubrication'));
-    document.getElementById('complete-belt-check').addEventListener('click', () => markMaintenanceComplete('belt-check'));
-    document.getElementById('complete-bearing-inspection').addEventListener('click', () => markMaintenanceComplete('bearing-inspection'));
-    document.getElementById('complete-system-check').addEventListener('click', () => markMaintenanceComplete('system-check'));
-
     // Theme toggle
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     // Logout button
     document.getElementById('logout-btn').addEventListener('click', logout);
 }
-
-
-
-// ======================
-// Navigation Functions
-// ======================
 
 function setupNavigation() {
     // Home link navigation
@@ -5291,13 +5840,10 @@ function setupNavigation() {
     });
 }
 
-
-
 // ======================
-// Page Initialization (Updated)
+// Page Initialization
 // ======================
 
-// Add this to your window.onload function
 window.onload = function() {
   // Initialize date inputs with default values (last 7 days)
   const today = new Date();
@@ -5325,7 +5871,6 @@ window.onload = function() {
   setInterval(updateCurrentTime, 1000);
 };
 
-
 // Enhanced chart utility functions
 function exportAllGraphs() {
     const charts = [
@@ -5352,7 +5897,6 @@ function toggleGraphLayout() {
         grid.classList.add('grid-cols-1');
     }
 }
-
 
 // ======================
 // Logout Functionality
