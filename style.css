@@ -1,0 +1,27 @@
+﻿/* Additional styles for login page inputs */
+.input {
+  background-color: #f3f4f6;
+  transition: background-color 0.3s;
+}
+body.light-mode .input {
+  background-color: #e5e7eb;
+}
+
+/* Ensure consistent button styling */
+button {
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Loading spinner for historical data */
+#historical-loading {
+  margin: 20px auto;
+}
+
+/* Ensure charts are responsive */
+canvas {
+  max-width: 100% !important;
+}

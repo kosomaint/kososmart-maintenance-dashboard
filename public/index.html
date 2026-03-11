@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login to KOSO</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      background-image: url('asset/background.jpg'); /* Path to the JPG image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 flex items-start justify-end h-screen">
+  <!-- Adjusted margins to align the login box with the KOSO logo in the background -->
+  <div class="container bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center max-w-sm w-full mr-16 mt-8" style="height: 450px; display: flex; flex-direction: column; justify-content: center;">
+    <h1 class="text-2xl font-bold mb-4">
+      Login to <span class="text-red-600 text-4xl font-extrabold">KOSO</span>
+      <span class="text-green-600 text-lg">SMART MAINTENANCE</span>
+    </h1>
+    <input id="email" type="email" placeholder="Email" class="input mb-3 p-2 w-4/5 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <input id="password" type="password" placeholder="Password" class="input mb-3 p-2 w-4/5 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Login</button>
+    <button onclick="signup()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Sign Up</button>
+  </div>
+  <script src="firebase.js"></script>
+</body>
+</html>
