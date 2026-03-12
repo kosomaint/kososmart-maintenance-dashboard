@@ -147,15 +147,17 @@
     font-size: 0.9em; 
   }
 
-  /* Temperature Card Styles */
+  /* Temperature Card Styles - ENHANCED */
   .temp-card {
     background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
     border-radius: 16px;
-    padding: 20px;
+    padding: 25px;
     transition: all 0.3s ease;
     border: 1px solid #4a5568;
     position: relative;
     overflow: hidden;
+    width: 100%;
+    min-width: 450px; /* Increased minimum width */
   }
   .temp-card.light-mode {
     background: linear-gradient(145deg, #ffffff 0%, #f3f4f6 100%);
@@ -181,21 +183,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #4a5568;
   }
   .temp-header.light-mode {
     border-bottom: 1px solid #d1d5db;
   }
   .temp-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
   }
   .temp-icon.spindle { background: linear-gradient(135deg, #ef4444, #991b1b); }
   .temp-icon.x-motor { background: linear-gradient(135deg, #f59e0b, #b45309); }
@@ -204,10 +206,10 @@
 
   /* Temperature Value Styles */
   .temp-current {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: bold;
     text-align: center;
-    margin: 10px 0;
+    margin: 15px 0;
     text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
   }
   .temp-current.spindle { color: #ef4444; }
@@ -215,7 +217,7 @@
   .temp-current.z-motor { color: #3b82f6; }
   .temp-current.hydraulic { color: #10b981; }
   .temp-unit {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #9ca3af;
     margin-left: 5px;
   }
@@ -223,9 +225,9 @@
   /* Temperature Progress Bar */
   .temp-progress-container {
     background-color: #4a5568;
-    height: 10px;
+    height: 12px;
     border-radius: 10px;
-    margin: 15px 0;
+    margin: 20px 0;
     overflow: hidden;
   }
   .temp-progress-bar {
@@ -242,13 +244,13 @@
   .temp-thresholds {
     display: flex;
     justify-content: space-between;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #9ca3af;
     margin-top: 5px;
   }
   .temp-threshold {
     text-align: center;
-    padding: 2px 6px;
+    padding: 4px 8px;
     border-radius: 4px;
   }
   .temp-threshold.normal { background: rgba(40, 167, 69, 0.2); color: #28a745; }
@@ -259,21 +261,21 @@
   .temp-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
     border-top: 1px solid #4a5568;
   }
   .temp-stat {
     text-align: center;
   }
   .temp-stat-label {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #9ca3af;
     margin-bottom: 5px;
   }
   .temp-stat-value {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
   }
   .temp-stat-value.spindle { color: #ef4444; }
@@ -289,42 +291,53 @@
     margin: 20px 0;
   }
 
-  /* Temperature Analysis Grid */
+  /* Temperature Analysis Grid - ENHANCED for larger charts */
   .temperature-analysis-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 40px;
     padding: 20px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1400px) {
     .temperature-analysis-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .temperature-analysis-grid {
       grid-template-columns: 1fr;
     }
   }
 
-  /* Temperature Chart Container - Increased heights */
+  /* Temperature Chart Container - DRAMATICALLY LARGER */
   .temp-chart-wrapper {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    padding: 15px;
-    margin-top: 15px;
-    height: 250px; /* Increased from 200px to 250px */
+    padding: 20px;
+    margin-top: 25px;
+    height: 450px !important;
+    min-height: 450px !important;
+    width: 100%;
     border: 1px solid #4a5568;
+    position: relative;
+  }
+
+  /* Ensure canvas takes full height in wrapper */
+  .temp-chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 410px !important;
+    display: block;
   }
 
   /* Temperature Summary Card */
   .temp-summary-card {
     background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
     border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
     border: 1px solid #4a5568;
   }
   .temp-summary-card.light-mode {
@@ -336,9 +349,9 @@
   .temp-alert {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
+    padding: 15px 20px;
     border-radius: 12px;
-    margin: 10px 0;
+    margin: 15px 0;
     animation: pulse 2s infinite;
   }
   .temp-alert.warning {
@@ -356,23 +369,24 @@
     100% { opacity: 1; }
   }
 
-  /* Temperature Legend */
+  /* Temperature Legend - ENHANCED */
   .temp-legend {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    margin: 15px 0;
+    margin: 20px 0 30px 0;
     flex-wrap: wrap;
   }
   .temp-legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
   .temp-legend-color {
-    width: 12px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
   }
   .temp-legend-color.spindle { background: #ef4444; }
@@ -380,38 +394,36 @@
   .temp-legend-color.z-motor { background: #3b82f6; }
   .temp-legend-color.hydraulic { background: #10b981; }
 
-  /* Combined Chart Container - Increased height */
+  /* Combined Chart Container - DRAMATICALLY LARGER */
   .combined-chart-wrapper {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    padding: 15px;
-    margin-top: 15px;
-    height: 350px; /* Increased from 300px to 350px */
-    border: 1px solid #4a5568;
+    padding: 20px;
+    margin-top: 20px;
+    height: 600px !important;
+    min-height: 600px !important;
+    width: 100%;
+    border: 1px solid #4a5563;
   }
 
-  /* Alarm Styles */
-  .alarm { 
-    background-color: #7f1d1d; 
-    color: white; 
-    padding: 10px; 
-    border-radius: 8px; 
-    margin: 10px; 
-    transition: background-color 0.3s; 
-  }
-  .alarm.light-mode { 
-    background-color: #f87171; 
-    color: #1f2937; 
+  .combined-chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 560px !important;
+    display: block;
   }
 
-  /* Main Content Styles */
+  /* Main Content - WIDER */
   .main-content { 
     margin-left: 220px; 
-    padding: 80px 20px 20px 20px; 
+    padding: 80px 30px 20px 30px;
+    max-width: calc(100% - 220px);
   }
   .main-content.full-screen {
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
+    padding: 80px 40px 20px 40px;
   }
 
   /* Header Styles */
@@ -484,11 +496,11 @@
     font-weight: bold; 
   }
 
-  /* Chart Canvas Styles */
+  /* Chart Canvas Styles - ENHANCED */
   canvas:not(.line-chart-canvas) { 
     max-width: 100% !important; 
-    max-height: 300px !important; 
-    margin: 20px auto; 
+    max-height: 100% !important; 
+    margin: 0 auto; 
     display: block; 
   }
 
@@ -806,11 +818,11 @@
     background-color: #dc3545;
   }
 
-  /* Chart Container Styles */
+  /* Chart Container Styles - ENHANCED */
   .chart-container {
     position: relative;
     width: 100%;
-    min-height: 300px;
+    min-height: 350px;
     margin-bottom: 20px;
   }
   .chart-actions {
@@ -834,11 +846,11 @@
   .chart-wrapper {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 100%;
     overflow-x: auto;
   }
   .chart-wrapper canvas {
-    min-width: 800px;
+    min-width: 100%;
   }
 
   /* Excel Table Styles */
@@ -1089,15 +1101,17 @@
     color: #2563eb;
   }
 
-  /* Temperature Analysis Section - Updated with better styling */
+  /* Temperature Analysis Section - ENHANCED */
   .temperature-analysis {
     margin-top: 30px;
     background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
     border-radius: 24px;
-    padding: 30px;
+    padding: 40px;
     transition: all 0.3s;
     border: 2px solid #4a5568;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    overflow-x: auto;
   }
   .temperature-analysis.light-mode {
     background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
@@ -1255,11 +1269,26 @@
     transition: opacity 0.3s;
   }
 
+  /* Force chart containers to maintain size */
+  .temp-chart-wrapper,
+  .combined-chart-wrapper {
+    transition: height 0.3s ease;
+  }
+
+  /* Ensure canvas elements fill their containers */
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .main-content {
       margin-left: 0;
       padding: 20px 10px;
+      max-width: 100%;
     }
     .sidebar {
       width: 160px;
@@ -1282,6 +1311,17 @@
     }
     .temperature-analysis-grid {
       grid-template-columns: 1fr;
+    }
+    .temp-card {
+      min-width: 100%;
+    }
+    .temp-chart-wrapper {
+      height: 350px !important;
+      min-height: 350px !important;
+    }
+    .combined-chart-wrapper {
+      height: 450px !important;
+      min-height: 450px !important;
     }
   }
 </style>
@@ -1572,7 +1612,7 @@
       </div>
     </div>
    
-    <!-- Temperature Analysis Section - Redesigned for Better Visual Appeal with Fixed Data Fetching -->
+    <!-- Temperature Analysis Section - ENHANCED with larger charts -->
     <div id="temperature-analysis-section" class="temperature-analysis mt-6">
       <h2 class="text-xl font-semibold">
         <i class="fas fa-temperature-high"></i>
@@ -1621,7 +1661,7 @@
         </div>
       </div>
 
-      <!-- Temperature Cards Grid -->
+      <!-- Temperature Cards Grid - with LARGER charts -->
       <div class="temperature-analysis-grid">
         <!-- Spindle Motor Temperature Card -->
         <div class="temp-card" id="spindle-temp-card">
@@ -1663,6 +1703,7 @@
             </div>
           </div>
           
+          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="spindle-temp-chart"></canvas>
           </div>
@@ -1708,6 +1749,7 @@
             </div>
           </div>
           
+          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="x-temp-chart"></canvas>
           </div>
@@ -1753,6 +1795,7 @@
             </div>
           </div>
           
+          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="z-temp-chart"></canvas>
           </div>
@@ -1798,6 +1841,7 @@
             </div>
           </div>
           
+          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="hydraulic-temp-chart"></canvas>
           </div>
@@ -1810,10 +1854,10 @@
         <div id="temp-alerts-list"></div>
       </div>
 
-      <!-- Combined Temperature Trend Chart - Increased height -->
+      <!-- Combined Temperature Trend Chart - EVEN LARGER -->
       <div class="temp-summary-card mt-4">
         <h3 class="text-lg font-semibold mb-3">Temperature Trends (All Motors)</h3>
-        <div class="combined-chart-wrapper" style="height: 350px;">
+        <div class="combined-chart-wrapper">
           <canvas id="combined-temp-chart"></canvas>
         </div>
         <div class="chart-actions">
@@ -2906,7 +2950,9 @@ function toggleTheme() {
     document.querySelector('.maintenance-log').classList.toggle('light-mode');
     
     // Update all charts to reflect theme change
-    updateAllCharts();
+    setTimeout(() => {
+        updateAllCharts();
+    }, 100);
 }
 
 // ======================
@@ -3096,7 +3142,9 @@ function selectMachine(machine) {
     listenForControlStates();
     
     // Load initial data for charts
-    updateAllCharts();
+    setTimeout(() => {
+        updateAllCharts();
+    }, 500);
 }
 
 // ======================
@@ -3392,10 +3440,19 @@ function startDataFetch() {
 }
 
 // ======================
-// Temperature Chart Functions - FIXED DATA FETCHING
+// Temperature Chart Functions - ENHANCED with larger charts
 // ======================
 
 function updateTemperatureCharts() {
+    // Force resize of all temperature charts
+    setTimeout(() => {
+        if (window.spindleTempChart) window.spindleTempChart.resize();
+        if (window.xTempChart) window.xTempChart.resize();
+        if (window.zTempChart) window.zTempChart.resize();
+        if (window.hydraulicTempChart) window.hydraulicTempChart.resize();
+        if (window.combinedTempChart) window.combinedTempChart.resize();
+    }, 100);
+    
     updateSpindleTempChart();
     updateXTempChart();
     updateZTempChart();
@@ -3444,7 +3501,7 @@ function updateSpindleTempChart() {
                 legend: {
                     labels: { 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 },
                 tooltip: {
@@ -3464,7 +3521,18 @@ function updateSpindleTempChart() {
                     display: true,
                     text: 'Spindle Motor Temperature Trend',
                     color: textColor,
-                    font: { size: 14, weight: 'bold' }
+                    font: { size: 16, weight: 'bold' }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
                 }
             },
             scales: {
@@ -3476,23 +3544,33 @@ function updateSpindleTempChart() {
                         display: true, 
                         text: 'Temperature (°C)', 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
+                    ticks: { 
+                        color: textColor,
+                        font: { size: 12 }
+                    },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    }
                 },
                 x: {
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        font: { size: 11 }
                     },
-                    grid: { color: gridColor },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    },
                     title: {
                         display: true,
                         text: 'Time',
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 }
             }
@@ -3559,7 +3637,7 @@ function updateXTempChart() {
                 legend: {
                     labels: { 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 },
                 tooltip: {
@@ -3579,7 +3657,18 @@ function updateXTempChart() {
                     display: true,
                     text: 'X-Axis Motor Temperature Trend',
                     color: textColor,
-                    font: { size: 14, weight: 'bold' }
+                    font: { size: 16, weight: 'bold' }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
                 }
             },
             scales: {
@@ -3591,23 +3680,33 @@ function updateXTempChart() {
                         display: true, 
                         text: 'Temperature (°C)', 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
+                    ticks: { 
+                        color: textColor,
+                        font: { size: 12 }
+                    },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    }
                 },
                 x: {
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        font: { size: 11 }
                     },
-                    grid: { color: gridColor },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    },
                     title: {
                         display: true,
                         text: 'Time',
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 }
             }
@@ -3674,7 +3773,7 @@ function updateZTempChart() {
                 legend: {
                     labels: { 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 },
                 tooltip: {
@@ -3694,7 +3793,18 @@ function updateZTempChart() {
                     display: true,
                     text: 'Z-Axis Motor Temperature Trend',
                     color: textColor,
-                    font: { size: 14, weight: 'bold' }
+                    font: { size: 16, weight: 'bold' }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
                 }
             },
             scales: {
@@ -3706,23 +3816,33 @@ function updateZTempChart() {
                         display: true, 
                         text: 'Temperature (°C)', 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
+                    ticks: { 
+                        color: textColor,
+                        font: { size: 12 }
+                    },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    }
                 },
                 x: {
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        font: { size: 11 }
                     },
-                    grid: { color: gridColor },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    },
                     title: {
                         display: true,
                         text: 'Time',
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 }
             }
@@ -3789,7 +3909,7 @@ function updateHydraulicTempChart() {
                 legend: {
                     labels: { 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 },
                 tooltip: {
@@ -3809,7 +3929,18 @@ function updateHydraulicTempChart() {
                     display: true,
                     text: 'Hydraulic Motor Temperature Trend',
                     color: textColor,
-                    font: { size: 14, weight: 'bold' }
+                    font: { size: 16, weight: 'bold' }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: { enabled: true },
+                        pinch: { enabled: true },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
                 }
             },
             scales: {
@@ -3821,23 +3952,33 @@ function updateHydraulicTempChart() {
                         display: true, 
                         text: 'Temperature (°C)', 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
+                    ticks: { 
+                        color: textColor,
+                        font: { size: 12 }
+                    },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    }
                 },
                 x: {
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        font: { size: 11 }
                     },
-                    grid: { color: gridColor },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 1.5
+                    },
                     title: {
                         display: true,
                         text: 'Time',
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 }
             }
@@ -3940,7 +4081,7 @@ function updateCombinedTempChart() {
                 legend: {
                     labels: { 
                         color: textColor,
-                        font: { size: 12, weight: 'bold' }
+                        font: { size: 14, weight: 'bold' }
                     }
                 },
                 tooltip: {
@@ -3959,7 +4100,7 @@ function updateCombinedTempChart() {
                     display: true,
                     text: 'Temperature Trends - All Motors',
                     color: textColor,
-                    font: { size: 16, weight: 'bold' }
+                    font: { size: 18, weight: 'bold' }
                 },
                 zoom: {
                     zoom: {
@@ -3982,24 +4123,34 @@ function updateCombinedTempChart() {
                         display: true, 
                         text: 'Temperature (°C)', 
                         color: textColor,
-                        font: { size: 14, weight: 'bold' }
+                        font: { size: 16, weight: 'bold' }
                     },
-                    ticks: { color: textColor },
-                    grid: { color: gridColor }
+                    ticks: { 
+                        color: textColor,
+                        font: { size: 13 }
+                    },
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 2
+                    }
                 },
                 x: {
                     title: { 
                         display: true, 
                         text: 'Time', 
                         color: textColor,
-                        font: { size: 14, weight: 'bold' }
+                        font: { size: 16, weight: 'bold' }
                     },
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        font: { size: 12 }
                     },
-                    grid: { color: gridColor }
+                    grid: { 
+                        color: gridColor,
+                        lineWidth: 2
+                    }
                 }
             }
         }
@@ -5982,21 +6133,17 @@ function initializeEventListeners() {
         btn.addEventListener('click', () => selectMachine(btn.dataset.machine));
     });
 
-    // Historical data buttons
-    document.getElementById('filter-historical-btn').addEventListener('click', filterHistoricalData);
-    document.getElementById('export-historical-btn').addEventListener('click', exportHistoricalToExcel);
-
-    // Maintenance buttons
-    document.getElementById('maintenance-on-btn').addEventListener('click', () => setMaintenanceMode(true));
-    document.getElementById('maintenance-off-btn').addEventListener('click', () => setMaintenanceMode(false));
-    document.getElementById('e-stop-btn').addEventListener('click', toggleEStop);
-    document.getElementById('show-alerts-btn').addEventListener('click', toggleAlertHistory);
-
     // Theme toggle
-    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
 
     // Logout button
-    document.getElementById('logout-btn').addEventListener('click', logout);
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logout);
+    }
 }
 
 function setupNavigation() {
@@ -6022,6 +6169,20 @@ function setupNavigation() {
         });
     });
 }
+
+// ======================
+// Window Resize Handler
+// ======================
+
+window.addEventListener('resize', () => {
+    // Debounce the resize event
+    clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(() => {
+        if (selectedMachine) {
+            updateTemperatureCharts();
+        }
+    }, 250);
+});
 
 // ======================
 // Page Initialization
