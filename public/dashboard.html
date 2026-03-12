@@ -309,13 +309,14 @@
     }
   }
 
-  /* Temperature Chart Container */
+  /* Temperature Chart Container - Increased heights */
   .temp-chart-wrapper {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
-    height: 200px;
+    height: 250px; /* Increased from 200px to 250px */
+    border: 1px solid #4a5568;
   }
 
   /* Temperature Summary Card */
@@ -378,6 +379,16 @@
   .temp-legend-color.x-motor { background: #f59e0b; }
   .temp-legend-color.z-motor { background: #3b82f6; }
   .temp-legend-color.hydraulic { background: #10b981; }
+
+  /* Combined Chart Container - Increased height */
+  .combined-chart-wrapper {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    height: 350px; /* Increased from 300px to 350px */
+    border: 1px solid #4a5568;
+  }
 
   /* Alarm Styles */
   .alarm { 
@@ -1078,18 +1089,20 @@
     color: #2563eb;
   }
 
-  /* Temperature Analysis Section */
+  /* Temperature Analysis Section - Updated with better styling */
   .temperature-analysis {
     margin-top: 30px;
     background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
     border-radius: 24px;
     padding: 30px;
     transition: all 0.3s;
-    border: 1px solid #4a5568;
+    border: 2px solid #4a5568;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
   .temperature-analysis.light-mode {
     background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
-    border: 1px solid #d1d5db;
+    border: 2px solid #d1d5db;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
   .temperature-analysis h2 {
     color: #3b82f6;
@@ -1100,6 +1113,7 @@
     gap: 10px;
     border-bottom: 2px solid #4a5568;
     padding-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   .temperature-analysis h2 i {
     font-size: 2rem;
@@ -1558,7 +1572,7 @@
       </div>
     </div>
    
-    <!-- Temperature Analysis Section - Redesigned for Better Visual Appeal -->
+    <!-- Temperature Analysis Section - Redesigned for Better Visual Appeal with Fixed Data Fetching -->
     <div id="temperature-analysis-section" class="temperature-analysis mt-6">
       <h2 class="text-xl font-semibold">
         <i class="fas fa-temperature-high"></i>
@@ -1796,10 +1810,10 @@
         <div id="temp-alerts-list"></div>
       </div>
 
-      <!-- Combined Temperature Trend Chart -->
+      <!-- Combined Temperature Trend Chart - Increased height -->
       <div class="temp-summary-card mt-4">
         <h3 class="text-lg font-semibold mb-3">Temperature Trends (All Motors)</h3>
-        <div class="chart-wrapper" style="height: 300px;">
+        <div class="combined-chart-wrapper" style="height: 350px;">
           <canvas id="combined-temp-chart"></canvas>
         </div>
         <div class="chart-actions">
@@ -2355,6 +2369,9 @@
 </div>
 <audio id="alert-audio" src="sound/alert-beep.mp3"></audio>
 <script>
+// ======================
+// Translations Object
+// ======================
 const translations = {
   en: {
     dashboard: "Dashboard",
@@ -2401,10 +2418,6 @@ const translations = {
     alertMessage: "Alert Message",
     machineHealthMonitoring: "Machine Health Monitoring",
     home: "Home",
-    meanTimeBetweenFailures: "Mean Time Between Failures",
-    meanTimeToRepair: "Mean Time To Repair",
-    overallEquipmentEffectiveness: "Overall Equipment Effectiveness",
-    totalMaintenanceDowntime: "Total Maintenance Downtime",
     loadingExcelData: "Loading Excel data...",
     lastUpdated: "Last updated: ",
     recordsCount: " records",
@@ -2814,14 +2827,19 @@ function formatTimestamp(timestamp) {
 
 function parseNumber(value) {
     if (value === null || value === undefined) {
-        return '0.00';
+        return 0;
     }
     const cleanedValue = value.toString().replace(/[^0-9.-]/g, '');
     const parsed = parseFloat(cleanedValue);
     if (isNaN(parsed)) {
-        return '0.00';
+        return 0;
     }
-    return parsed.toFixed(2);
+    return parsed;
+}
+
+function formatNumber(value, decimals = 2) {
+    const num = parseNumber(value);
+    return num.toFixed(decimals);
 }
 
 function resetCumulativeData(prefix) {
@@ -2983,10 +3001,14 @@ const cumulativeData = {
 };
 
 const currentData = {
-    spindle: { r: [], y: [], b: [], timestamps: [], vibX: [], vibY: [], vibZ: [], velocity: [], vibPeak: [], temp: [] },
-    x: { r: [], y: [], b: [], timestamps: [], temp: [] },
-    z: { r: [], y: [], b: [], timestamps: [], temp: [] },
-    hydraulic: { r: [], y: [], b: [], timestamps: [], temp: [] }
+    spindle: { 
+        r: [], y: [], b: [], timestamps: [], 
+        vibX: [], vibY: [], vibZ: [], velocity: [], vibPeak: [], 
+        temp: [], load: [] 
+    },
+    x: { r: [], y: [], b: [], timestamps: [], temp: [], load: [] },
+    z: { r: [], y: [], b: [], timestamps: [], temp: [], load: [] },
+    hydraulic: { r: [], y: [], b: [], timestamps: [], temp: [], load: [] }
 };
 const MAX_DATA_POINTS = 20;
 
@@ -3130,6 +3152,7 @@ function startDataFetch() {
             currentData[prefix].b = [];
             currentData[prefix].timestamps = [];
             currentData[prefix].temp = [];
+            currentData[prefix].load = [];
             cumulativeData[prefix].power = 0;
             cumulativeData[prefix].kw = 0;
             cumulativeData[prefix].energy = 0;
@@ -3138,10 +3161,8 @@ function startDataFetch() {
         });
 
         // Detach any existing listeners for the previous machine
-        const previousMachine = selectedMachine;
         if (window.currentMachineListener) {
             window.currentMachineListener.off();
-            console.log(`Detached listener for ${previousMachine}`);
         }
 
         document.getElementById('loading-spinner').style.display = 'block';
@@ -3152,19 +3173,12 @@ function startDataFetch() {
         window.currentMachineListener = machineRef;
        
         machineRef.on('value', (snapshot) => {
-            // Verify that we're processing data for the correct machine
-            if (selectedMachine !== previousMachine) {
-                console.warn(`Data received for ${previousMachine}, but current machine is ${selectedMachine}. Ignoring.`);
-                return;
-            }
-
             document.getElementById('loading-spinner').style.display = 'none';
             const data = snapshot.val();
             console.log(`Data fetched from ${refPath}:`, data);
 
             if (!data) {
                 console.error(`No data found at path: ${refPath}`);
-                alert('No data available for the selected machine. Please check the database path or data availability.');
                 return;
             }
 
@@ -3189,18 +3203,52 @@ function startDataFetch() {
 
                 resetCumulativeData(prefix);
                 const thresholds = THRESHOLDS[selectedMachine][prefix];
-                const curR = parseNumber(componentData.MOTOR_CURRENT?.['1_R_Phase'] || 0);
-                const curY = parseNumber(componentData.MOTOR_CURRENT?.['2_Y_Phase'] || 0);
-                const curB = parseNumber(componentData.MOTOR_CURRENT?.['3_B_Phase'] || 0);
+                
+                // Parse current values
+                const curR = parseNumber(componentData.MOTOR_CURRENT?.['1_R_Phase'] || componentData.MOTOR_CURRENT?.R || 0);
+                const curY = parseNumber(componentData.MOTOR_CURRENT?.['2_Y_Phase'] || componentData.MOTOR_CURRENT?.Y || 0);
+                const curB = parseNumber(componentData.MOTOR_CURRENT?.['3_B_Phase'] || componentData.MOTOR_CURRENT?.B || 0);
                 const timestamp = componentData.Timestamp || new Date().toISOString();
 
-                // Update vibration and temperature data for spindle
+                // Parse load value
+                const loadValue = parseNumber(
+                    componentData.SPINDLE_LOAD?.Value || 
+                    componentData.MOTOR_LOAD?.Value || 
+                    componentData.LOAD?.Value || 
+                    0
+                );
+
+                // Parse temperature value
+                const tempValue = parseNumber(
+                    componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 
+                    componentData.TEMPERATURE?.Value || 
+                    0
+                );
+
+                // Update temperature data for all components
+                currentData[prefix].temp.push(tempValue);
+                currentData[prefix].load.push(loadValue);
+                
+                if (currentData[prefix].temp.length > MAX_DATA_POINTS) {
+                    currentData[prefix].temp.shift();
+                }
+                if (currentData[prefix].load.length > MAX_DATA_POINTS) {
+                    currentData[prefix].load.shift();
+                }
+
+                // Update vibration data for spindle
                 if (prefix === 'spindle') {
-                    currentData.spindle.vibX.push(parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_X_Axis || 0));
-                    currentData.spindle.vibY.push(parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0));
-                    currentData.spindle.vibZ.push(parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0));
-                    currentData.spindle.velocity.push(parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0));
-                    currentData.spindle.vibPeak.push(parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0));
+                    const vibX = parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_X_Axis || 0);
+                    const vibY = parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0);
+                    const vibZ = parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0);
+                    const velocity = parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0);
+                    const vibPeak = parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0);
+                    
+                    currentData.spindle.vibX.push(vibX);
+                    currentData.spindle.vibY.push(vibY);
+                    currentData.spindle.vibZ.push(vibZ);
+                    currentData.spindle.velocity.push(velocity);
+                    currentData.spindle.vibPeak.push(vibPeak);
                     
                     // Trim arrays to MAX_DATA_POINTS
                     if (currentData.spindle.vibX.length > MAX_DATA_POINTS) {
@@ -3210,13 +3258,12 @@ function startDataFetch() {
                         currentData.spindle.velocity.shift();
                         currentData.spindle.vibPeak.shift();
                     }
-                }
-
-                // Update temperature data for all components
-                const tempValue = parseNumber(componentData.MOTOR_TEMPERATURE?.Motor_Temperature || 0);
-                currentData[prefix].temp.push(tempValue);
-                if (currentData[prefix].temp.length > MAX_DATA_POINTS) {
-                    currentData[prefix].temp.shift();
+                    
+                    document.getElementById('spindle-vib-x').innerText = `${formatNumber(vibX)} m/s²`;
+                    document.getElementById('spindle-vib-y').innerText = `${formatNumber(vibY)} m/s²`;
+                    document.getElementById('spindle-vib-z').innerText = `${formatNumber(vibZ)} m/s²`;
+                    document.getElementById('spindle-velocity').innerText = `${formatNumber(velocity)} mm/s`;
+                    document.getElementById('spindle-vib-peak').innerText = `${formatNumber(vibPeak)} m/s²`;
                 }
 
                 let status = 'Normal';
@@ -3234,7 +3281,7 @@ function startDataFetch() {
                         alertHistory[selectedMachine].push({
                             timestamp,
                             machine: selectedMachine,
-                            message: `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} ${status}: Current ${maxCurrent}A`
+                            message: `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} ${status}: Current ${maxCurrent.toFixed(2)}A`
                         });
                         if (status === 'Abnormal') alertAudio.play().catch(err => console.error('Audio playback failed:', err));
                     }
@@ -3262,28 +3309,24 @@ function startDataFetch() {
                 cumulativeData[prefix].energy = energy;
                 cumulativeData[prefix].lastTimestamp = timestamp;
 
-                document.getElementById(`${prefix}-power`).innerText = `${power} W`;
-                document.getElementById(`${prefix}-kw`).innerText = `${kw} kW`;
-                document.getElementById(`${prefix}-energy`).innerText = `${energy} kWh`;
-                document.getElementById(`${prefix}-load`).innerText = `${parseNumber(componentData.SPINDLE_LOAD?.Value || componentData.MOTOR_LOAD?.Value || 0)}%`;
-                if (prefix === 'spindle') {
-                    document.getElementById('spindle-vib-x').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_X_Axis || 0)} m/s²`;
-                    document.getElementById('spindle-vib-y').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0)} m/s²`;
-                    document.getElementById('spindle-vib-z').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0)} m/s²`;
-                    document.getElementById('spindle-velocity').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0)} mm/s`;
-                    document.getElementById('spindle-vib-peak').innerText = `${parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0)} m/s²`;
-                }
-                document.getElementById(`${prefix}-temp`).innerText = `${tempValue}°C`;
-                document.getElementById(`${prefix}-cur-r`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['1_R_Phase'] || 0)} A`;
-                document.getElementById(`${prefix}-cur-y`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['2_Y_Phase'] || 0)} A`;
-                document.getElementById(`${prefix}-cur-b`).innerText = `${parseNumber(componentData.MOTOR_CURRENT?.['3_B_Phase'] || 0)} A`;
+                document.getElementById(`${prefix}-power`).innerText = `${formatNumber(power)} W`;
+                document.getElementById(`${prefix}-kw`).innerText = `${formatNumber(kw)} kW`;
+                document.getElementById(`${prefix}-energy`).innerText = `${formatNumber(energy)} kWh`;
+                document.getElementById(`${prefix}-load`).innerText = `${formatNumber(loadValue)}%`;
+                document.getElementById(`${prefix}-temp`).innerText = `${formatNumber(tempValue)}°C`;
+                document.getElementById(`${prefix}-cur-r`).innerText = `${formatNumber(curR)} A`;
+                document.getElementById(`${prefix}-cur-y`).innerText = `${formatNumber(curY)} A`;
+                document.getElementById(`${prefix}-cur-b`).innerText = `${formatNumber(curB)} A`;
                 document.getElementById(`${prefix}-status`).className = `status-${status.toLowerCase()}`;
                 document.getElementById(`${prefix}-status-text`).innerText = status;
                 document.getElementById(`${prefix}-timestamp`).innerText = formatTimestamp(timestamp);
+                
+                // Update current data arrays
                 currentData[prefix].r.push(curR);
                 currentData[prefix].y.push(curY);
                 currentData[prefix].b.push(curB);
                 currentData[prefix].timestamps.push(new Date(timestamp).toLocaleTimeString());
+                
                 if (currentData[prefix].r.length > MAX_DATA_POINTS) {
                     currentData[prefix].r.shift();
                     currentData[prefix].y.shift();
@@ -3294,15 +3337,22 @@ function startDataFetch() {
                 // Add to machine-specific live data
                 liveData[selectedMachine].push({
                     component: prefix.charAt(0).toUpperCase() + prefix.slice(1),
-                    power, kw, energy,
-                    load: parseNumber(componentData.SPINDLE_LOAD?.Value || componentData.MOTOR_LOAD?.Value || 0),
-                    vibX: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_X_Axis || 0),
-                    vibY: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0),
-                    vibZ: parseNumber(componentData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0),
-                    velocity: parseNumber(componentData.SPINDLE_VIBRATION?.Velocity || 0),
-                    VibPeak: parseNumber(componentData.SPINDLE_VIBRATION?.Velocity_Peak || 0),
-                    temp: tempValue,
-                    curR, curY, curB, status, timestamp
+                    power: formatNumber(power),
+                    kw: formatNumber(kw),
+                    energy: formatNumber(energy),
+                    load: formatNumber(loadValue),
+                    vibX: prefix === 'spindle' ? formatNumber(currentData.spindle.vibX[currentData.spindle.vibX.length - 1] || 0) : 0,
+                    vibY: prefix === 'spindle' ? formatNumber(currentData.spindle.vibY[currentData.spindle.vibY.length - 1] || 0) : 0,
+                    vibZ: prefix === 'spindle' ? formatNumber(currentData.spindle.vibZ[currentData.spindle.vibZ.length - 1] || 0) : 0,
+                    velocity: prefix === 'spindle' ? formatNumber(currentData.spindle.velocity[currentData.spindle.velocity.length - 1] || 0) : 0,
+                    VibPeak: prefix === 'spindle' ? formatNumber(currentData.spindle.vibPeak[currentData.spindle.vibPeak.length - 1] || 0) : 0,
+                    temp: formatNumber(tempValue),
+                    curR: formatNumber(curR),
+                    curY: formatNumber(curY),
+                    curB: formatNumber(curB),
+                    maxCurrent: formatNumber(maxCurrent),
+                    status,
+                    timestamp
                 });
             });
 
@@ -3342,7 +3392,7 @@ function startDataFetch() {
 }
 
 // ======================
-// Temperature Chart Functions
+// Temperature Chart Functions - FIXED DATA FETCHING
 // ======================
 
 function updateTemperatureCharts() {
@@ -3380,9 +3430,11 @@ function updateSpindleTempChart() {
                 backgroundColor: 'rgba(239, 68, 68, 0.1)',
                 fill: true,
                 tension: 0.1,
-                borderWidth: 2,
+                borderWidth: 3,
                 pointBackgroundColor: '#ef4444',
-                pointBorderColor: '#ffffff'
+                pointBorderColor: '#ffffff',
+                pointRadius: 4,
+                pointHoverRadius: 6
             }]
         },
         options: {
@@ -3390,15 +3442,29 @@ function updateSpindleTempChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: textColor }
+                    labels: { 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 },
                 tooltip: {
                     mode: 'index',
+                    backgroundColor: isLightMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                    titleColor: isLightMode ? '#1f2937' : '#ffffff',
+                    bodyColor: isLightMode ? '#374151' : '#d1d5db',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2,
                     callbacks: {
                         label: function(context) {
                             return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
                         }
                     }
+                },
+                title: {
+                    display: true,
+                    text: 'Spindle Motor Temperature Trend',
+                    color: textColor,
+                    font: { size: 14, weight: 'bold' }
                 }
             },
             scales: {
@@ -3406,7 +3472,12 @@ function updateSpindleTempChart() {
                     beginAtZero: false,
                     min: 0,
                     max: 100,
-                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Temperature (°C)', 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
@@ -3416,7 +3487,13 @@ function updateSpindleTempChart() {
                         maxRotation: 45,
                         minRotation: 45
                     },
-                    grid: { color: gridColor }
+                    grid: { color: gridColor },
+                    title: {
+                        display: true,
+                        text: 'Time',
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 }
             }
         }
@@ -3468,9 +3545,11 @@ function updateXTempChart() {
                 backgroundColor: 'rgba(245, 158, 11, 0.1)',
                 fill: true,
                 tension: 0.1,
-                borderWidth: 2,
+                borderWidth: 3,
                 pointBackgroundColor: '#f59e0b',
-                pointBorderColor: '#ffffff'
+                pointBorderColor: '#ffffff',
+                pointRadius: 4,
+                pointHoverRadius: 6
             }]
         },
         options: {
@@ -3478,15 +3557,29 @@ function updateXTempChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: textColor }
+                    labels: { 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 },
                 tooltip: {
                     mode: 'index',
+                    backgroundColor: isLightMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                    titleColor: isLightMode ? '#1f2937' : '#ffffff',
+                    bodyColor: isLightMode ? '#374151' : '#d1d5db',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2,
                     callbacks: {
                         label: function(context) {
                             return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
                         }
                     }
+                },
+                title: {
+                    display: true,
+                    text: 'X-Axis Motor Temperature Trend',
+                    color: textColor,
+                    font: { size: 14, weight: 'bold' }
                 }
             },
             scales: {
@@ -3494,7 +3587,12 @@ function updateXTempChart() {
                     beginAtZero: false,
                     min: 0,
                     max: 100,
-                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Temperature (°C)', 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
@@ -3504,7 +3602,13 @@ function updateXTempChart() {
                         maxRotation: 45,
                         minRotation: 45
                     },
-                    grid: { color: gridColor }
+                    grid: { color: gridColor },
+                    title: {
+                        display: true,
+                        text: 'Time',
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 }
             }
         }
@@ -3556,9 +3660,11 @@ function updateZTempChart() {
                 backgroundColor: 'rgba(59, 130, 246, 0.1)',
                 fill: true,
                 tension: 0.1,
-                borderWidth: 2,
+                borderWidth: 3,
                 pointBackgroundColor: '#3b82f6',
-                pointBorderColor: '#ffffff'
+                pointBorderColor: '#ffffff',
+                pointRadius: 4,
+                pointHoverRadius: 6
             }]
         },
         options: {
@@ -3566,15 +3672,29 @@ function updateZTempChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: textColor }
+                    labels: { 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 },
                 tooltip: {
                     mode: 'index',
+                    backgroundColor: isLightMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                    titleColor: isLightMode ? '#1f2937' : '#ffffff',
+                    bodyColor: isLightMode ? '#374151' : '#d1d5db',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2,
                     callbacks: {
                         label: function(context) {
                             return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
                         }
                     }
+                },
+                title: {
+                    display: true,
+                    text: 'Z-Axis Motor Temperature Trend',
+                    color: textColor,
+                    font: { size: 14, weight: 'bold' }
                 }
             },
             scales: {
@@ -3582,7 +3702,12 @@ function updateZTempChart() {
                     beginAtZero: false,
                     min: 0,
                     max: 100,
-                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Temperature (°C)', 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
@@ -3592,7 +3717,13 @@ function updateZTempChart() {
                         maxRotation: 45,
                         minRotation: 45
                     },
-                    grid: { color: gridColor }
+                    grid: { color: gridColor },
+                    title: {
+                        display: true,
+                        text: 'Time',
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 }
             }
         }
@@ -3644,9 +3775,11 @@ function updateHydraulicTempChart() {
                 backgroundColor: 'rgba(16, 185, 129, 0.1)',
                 fill: true,
                 tension: 0.1,
-                borderWidth: 2,
+                borderWidth: 3,
                 pointBackgroundColor: '#10b981',
-                pointBorderColor: '#ffffff'
+                pointBorderColor: '#ffffff',
+                pointRadius: 4,
+                pointHoverRadius: 6
             }]
         },
         options: {
@@ -3654,15 +3787,29 @@ function updateHydraulicTempChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: textColor }
+                    labels: { 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 },
                 tooltip: {
                     mode: 'index',
+                    backgroundColor: isLightMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                    titleColor: isLightMode ? '#1f2937' : '#ffffff',
+                    bodyColor: isLightMode ? '#374151' : '#d1d5db',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2,
                     callbacks: {
                         label: function(context) {
                             return `Temperature: ${context.parsed.y.toFixed(2)}°C`;
                         }
                     }
+                },
+                title: {
+                    display: true,
+                    text: 'Hydraulic Motor Temperature Trend',
+                    color: textColor,
+                    font: { size: 14, weight: 'bold' }
                 }
             },
             scales: {
@@ -3670,7 +3817,12 @@ function updateHydraulicTempChart() {
                     beginAtZero: false,
                     min: 0,
                     max: 100,
-                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Temperature (°C)', 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
@@ -3680,7 +3832,13 @@ function updateHydraulicTempChart() {
                         maxRotation: 45,
                         minRotation: 45
                     },
-                    grid: { color: gridColor }
+                    grid: { color: gridColor },
+                    title: {
+                        display: true,
+                        text: 'Time',
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 }
             }
         }
@@ -3732,7 +3890,9 @@ function updateCombinedTempChart() {
                     backgroundColor: 'rgba(239, 68, 68, 0.1)',
                     fill: false,
                     tension: 0.1,
-                    borderWidth: 2
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
                 },
                 {
                     label: 'X-Axis Motor',
@@ -3741,7 +3901,9 @@ function updateCombinedTempChart() {
                     backgroundColor: 'rgba(245, 158, 11, 0.1)',
                     fill: false,
                     tension: 0.1,
-                    borderWidth: 2
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
                 },
                 {
                     label: 'Z-Axis Motor',
@@ -3750,7 +3912,9 @@ function updateCombinedTempChart() {
                     backgroundColor: 'rgba(59, 130, 246, 0.1)',
                     fill: false,
                     tension: 0.1,
-                    borderWidth: 2
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
                 },
                 {
                     label: 'Hydraulic Motor',
@@ -3759,7 +3923,9 @@ function updateCombinedTempChart() {
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     fill: false,
                     tension: 0.1,
-                    borderWidth: 2
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
                 }
             ]
         },
@@ -3772,14 +3938,28 @@ function updateCombinedTempChart() {
             },
             plugins: {
                 legend: {
-                    labels: { color: textColor }
+                    labels: { 
+                        color: textColor,
+                        font: { size: 12, weight: 'bold' }
+                    }
                 },
                 tooltip: {
+                    backgroundColor: isLightMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                    titleColor: isLightMode ? '#1f2937' : '#ffffff',
+                    bodyColor: isLightMode ? '#374151' : '#d1d5db',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2,
                     callbacks: {
                         label: function(context) {
                             return `${context.dataset.label}: ${context.parsed.y.toFixed(2)}°C`;
                         }
                     }
+                },
+                title: {
+                    display: true,
+                    text: 'Temperature Trends - All Motors',
+                    color: textColor,
+                    font: { size: 16, weight: 'bold' }
                 },
                 zoom: {
                     zoom: {
@@ -3798,12 +3978,22 @@ function updateCombinedTempChart() {
                     beginAtZero: false,
                     min: 0,
                     max: 100,
-                    title: { display: true, text: 'Temperature (°C)', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Temperature (°C)', 
+                        color: textColor,
+                        font: { size: 14, weight: 'bold' }
+                    },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
                 x: {
-                    title: { display: true, text: 'Time', color: textColor },
+                    title: { 
+                        display: true, 
+                        text: 'Time', 
+                        color: textColor,
+                        font: { size: 14, weight: 'bold' }
+                    },
                     ticks: { 
                         color: textColor,
                         maxRotation: 45,
@@ -3822,7 +4012,7 @@ function updateTemperatureStats() {
         ...currentData.x.temp,
         ...currentData.z.temp,
         ...currentData.hydraulic.temp
-    ].filter(temp => !isNaN(temp));
+    ].filter(temp => !isNaN(temp) && temp > 0);
     
     if (allTemps.length === 0) return;
     
@@ -5390,7 +5580,7 @@ function updateSummaryTable(historicalData) {
     ];
 
     parameters.forEach(param => {
-        const validData = param.data.filter(val => !isNaN(parseFloat(val)));
+        const validData = param.data.filter(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0);
         if (validData.length === 0) return;
 
         const avg = (validData.reduce((a, b) => a + b, 0) / validData.length).toFixed(2);
@@ -5481,7 +5671,6 @@ async function exportHistoricalToExcel() {
            
             // Skip if no timestamp
             if (!entry.Timestamp) {
-                console.log('Skipping entry without timestamp:', entry.key);
                 return;
             }
 
@@ -5490,11 +5679,9 @@ async function exportHistoricalToExcel() {
             try {
                 entryDate = new Date(entry.Timestamp);
                 if (isNaN(entryDate.getTime())) {
-                    console.log('Invalid timestamp format:', entry.Timestamp);
                     return;
                 }
             } catch (e) {
-                console.log('Date parse error:', e);
                 return;
             }
 
@@ -5572,11 +5759,7 @@ async function exportHistoricalToExcel() {
 
         if (exportData.length === 0) {
             alert(`No data found between ${startDate.toLocaleDateString()} and ${endDate.toLocaleDateString()}\n\n` +
-                  `Scanned ${totalEntries} total entries.\n` +
-                  `Possible issues:\n` +
-                  `1. Date range is too narrow\n` +
-                  `2. Data format doesn't match expected structure\n` +
-                  `3. Machine wasn't producing data during this period`);
+                  `Scanned ${totalEntries} total entries.`);
             return;
         }
 
