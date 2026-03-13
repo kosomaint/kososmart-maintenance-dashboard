@@ -45,6 +45,7 @@
     top: 0; 
     left: 0; 
     transition: background-color 0.3s; 
+    z-index: 1000;
   }
   .sidebar.light-mode { 
     background-color: #e5e7eb; 
@@ -147,7 +148,7 @@
     font-size: 0.9em; 
   }
 
-  /* Temperature Card Styles - ENHANCED */
+  /* Temperature Card Styles */
   .temp-card {
     background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
     border-radius: 16px;
@@ -157,7 +158,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    min-width: 450px; /* Increased minimum width */
+    min-width: 450px;
   }
   .temp-card.light-mode {
     background: linear-gradient(145deg, #ffffff 0%, #f3f4f6 100%);
@@ -283,15 +284,7 @@
   .temp-stat-value.z-motor { color: #3b82f6; }
   .temp-stat-value.hydraulic { color: #10b981; }
 
-  /* Temperature Gauge Container */
-  .temp-gauge-container {
-    position: relative;
-    width: 100%;
-    height: 150px;
-    margin: 20px 0;
-  }
-
-  /* Temperature Analysis Grid - ENHANCED for larger charts */
+  /* Temperature Analysis Grid */
   .temperature-analysis-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -311,7 +304,7 @@
     }
   }
 
-  /* Temperature Chart Container - DRAMATICALLY LARGER */
+  /* Temperature Chart Container */
   .temp-chart-wrapper {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
@@ -324,7 +317,6 @@
     position: relative;
   }
 
-  /* Ensure canvas takes full height in wrapper */
   .temp-chart-wrapper canvas {
     width: 100% !important;
     height: 100% !important;
@@ -369,7 +361,7 @@
     100% { opacity: 1; }
   }
 
-  /* Temperature Legend - ENHANCED */
+  /* Temperature Legend */
   .temp-legend {
     display: flex;
     gap: 30px;
@@ -394,7 +386,7 @@
   .temp-legend-color.z-motor { background: #3b82f6; }
   .temp-legend-color.hydraulic { background: #10b981; }
 
-  /* Combined Chart Container - DRAMATICALLY LARGER */
+  /* Combined Chart Container */
   .combined-chart-wrapper {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
@@ -413,7 +405,7 @@
     display: block;
   }
 
-  /* Main Content - WIDER */
+  /* Main Content */
   .main-content { 
     margin-left: 220px; 
     padding: 80px 30px 20px 30px;
@@ -496,7 +488,7 @@
     font-weight: bold; 
   }
 
-  /* Chart Canvas Styles - ENHANCED */
+  /* Chart Canvas Styles */
   canvas:not(.line-chart-canvas) { 
     max-width: 100% !important; 
     max-height: 100% !important; 
@@ -529,7 +521,7 @@
     display: block; 
   }
 
-  /* Historical Section Styles */
+  /* Historical Section Styles - ENHANCED */
   .historical-section { 
     margin-top: 40px; 
   }
@@ -543,19 +535,19 @@
     color: #2563eb; 
   }
   .historical-charts { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
   }
   .historical-chart-card { 
     background-color: #2d3748; 
     border-radius: 8px; 
     padding: 20px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
-    width: 100%; 
-    max-width: 600px; 
     transition: background-color 0.3s; 
     border: 1px solid #4b5563; 
+    height: 400px;
   }
   .historical-chart-card.light-mode { 
     background-color: #ffffff; 
@@ -565,9 +557,100 @@
   .historical-chart-card h3 { 
     color: #d1d5db !important; 
     transition: color 0.3s; 
+    margin-bottom: 15px;
   }
   .historical-chart-card h3.light-mode { 
     color: #1f2937 !important; 
+  }
+  .historical-chart-card canvas {
+    max-height: 300px !important;
+    width: 100% !important;
+  }
+
+  /* Historical Controls */
+  .historical-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #2d3748;
+    border-radius: 8px;
+    border: 1px solid #4b5563;
+  }
+  .historical-controls.light-mode {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+  }
+  .historical-date-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #4b5563;
+    background: #374151;
+    color: #d1d5db;
+    min-width: 200px;
+  }
+  .historical-date-input.light-mode {
+    border-color: #d1d5db;
+    background: #ffffff;
+    color: #1f2937;
+  }
+  .historical-btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+  }
+  .historical-btn.primary {
+    background: #3b82f6;
+  }
+  .historical-btn.primary:hover {
+    background: #2563eb;
+  }
+  .historical-btn.success {
+    background: #28a745;
+  }
+  .historical-btn.success:hover {
+    background: #218838;
+  }
+  .historical-btn.warning {
+    background: #ffc107;
+    color: #000;
+  }
+  .historical-btn.warning:hover {
+    background: #e0a800;
+  }
+
+  /* Historical Stats */
+  .historical-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .historical-stat-card {
+    background: #2d3748;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+  }
+  .historical-stat-card.light-mode {
+    background: #ffffff;
+    border-color: #d1d5db;
+  }
+  .historical-stat-label {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 5px;
+  }
+  .historical-stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3b82f6;
   }
 
   /* Summary Table Styles */
@@ -622,7 +705,7 @@
     width: 30px; 
     height: 30px; 
     animation: spin 1s linear infinite; 
-    margin: 0 auto; 
+    margin: 20px auto; 
   }
   @keyframes spin { 
     0% { transform: rotate(0deg); } 
@@ -685,17 +768,6 @@
   .excel-report-section h2.light-mode { 
     color: #2563eb; 
   }
-  .excel-report-link { 
-    background-color: #3b82f6; 
-    color: white; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    text-decoration: none; 
-    transition: background-color 0.3s; 
-  }
-  .excel-report-link:hover { 
-    background-color: #2563eb; 
-  }
 
   /* Machine Grid Styles */
   .machine-grid { 
@@ -739,25 +811,6 @@
   .machine-btn.active { 
     background: linear-gradient(45deg, #1e40af, #0891b2); 
     border-color: #2563eb; 
-  }
-  .machine-btn span.status-normal { 
-    background: #28a745; 
-    font-size: 0.875rem; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
-  }
-  .machine-btn span.status-warning { 
-    background: #ffc107; 
-    color: black; 
-    font-size: 0.875rem; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
-  }
-  .machine-btn span.status-abnormal { 
-    background: #dc3545; 
-    font-size: 0.875rem; 
-    padding: 4px 8px; 
-    border-radius: 12px; 
   }
 
   /* Alert History Table Styles */
@@ -818,7 +871,7 @@
     background-color: #dc3545;
   }
 
-  /* Chart Container Styles - ENHANCED */
+  /* Chart Container Styles */
   .chart-container {
     position: relative;
     width: 100%;
@@ -1101,7 +1154,7 @@
     color: #2563eb;
   }
 
-  /* Temperature Analysis Section - ENHANCED */
+  /* Temperature Analysis Section */
   .temperature-analysis {
     margin-top: 30px;
     background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
@@ -1283,6 +1336,60 @@
     object-fit: contain;
   }
 
+  /* Advanced Features */
+  .anomaly-detection-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .anomaly-high { background: #dc3545; color: white; }
+  .anomaly-medium { background: #ffc107; color: black; }
+  .anomaly-low { background: #28a745; color: white; }
+  
+  .trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+  }
+  .trend-up { color: #dc3545; }
+  .trend-down { color: #28a745; }
+  .trend-stable { color: #ffc107; }
+  
+  .prediction-card {
+    background: linear-gradient(135deg, #2d3748, #1a202c);
+    border-left: 4px solid #3b82f6;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  .prediction-card.light-mode {
+    background: linear-gradient(135deg, #ffffff, #f3f4f6);
+  }
+  
+  .health-score {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto;
+    background: conic-gradient(#28a745 0deg, #ffc107 180deg, #dc3545 360deg);
+  }
+  .health-score-inner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #2d3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .main-content {
@@ -1322,6 +1429,12 @@
     .combined-chart-wrapper {
       height: 450px !important;
       min-height: 450px !important;
+    }
+    .historical-charts {
+      grid-template-columns: 1fr;
+    }
+    .historical-chart-card {
+      height: 350px;
     }
   }
 </style>
@@ -1612,7 +1725,7 @@
       </div>
     </div>
    
-    <!-- Temperature Analysis Section - ENHANCED with larger charts -->
+    <!-- Temperature Analysis Section -->
     <div id="temperature-analysis-section" class="temperature-analysis mt-6">
       <h2 class="text-xl font-semibold">
         <i class="fas fa-temperature-high"></i>
@@ -1661,7 +1774,7 @@
         </div>
       </div>
 
-      <!-- Temperature Cards Grid - with LARGER charts -->
+      <!-- Temperature Cards Grid -->
       <div class="temperature-analysis-grid">
         <!-- Spindle Motor Temperature Card -->
         <div class="temp-card" id="spindle-temp-card">
@@ -1703,7 +1816,6 @@
             </div>
           </div>
           
-          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="spindle-temp-chart"></canvas>
           </div>
@@ -1749,7 +1861,6 @@
             </div>
           </div>
           
-          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="x-temp-chart"></canvas>
           </div>
@@ -1795,7 +1906,6 @@
             </div>
           </div>
           
-          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="z-temp-chart"></canvas>
           </div>
@@ -1841,7 +1951,6 @@
             </div>
           </div>
           
-          <!-- LARGER chart wrapper -->
           <div class="temp-chart-wrapper">
             <canvas id="hydraulic-temp-chart"></canvas>
           </div>
@@ -1854,7 +1963,7 @@
         <div id="temp-alerts-list"></div>
       </div>
 
-      <!-- Combined Temperature Trend Chart - EVEN LARGER -->
+      <!-- Combined Temperature Trend Chart -->
       <div class="temp-summary-card mt-4">
         <h3 class="text-lg font-semibold mb-3">Temperature Trends (All Motors)</h3>
         <div class="combined-chart-wrapper">
@@ -1867,110 +1976,133 @@
       </div>
     </div>
    
-    <!-- Historical Analytics Section -->
+    <!-- Historical Analytics Section - ENHANCED AND FIXED -->
     <div class="historical-section" id="historical-section">
-      <h2 class="text-xl font-semibold" data-lang-key="historicalAnalytics">Historical Analytics (Last 7 Days)</h2>
-      <div class="mb-4 flex space-x-4">
-        <input type="date" id="start-date" class="p-2 rounded bg-gray-700 text-white">
-        <input type="date" id="end-date" class="p-2 rounded bg-gray-700 text-white">
-        <button onclick="filterHistoricalData()" class="p-2 rounded bg-blue-600 text-white" data-lang-key="filter">Filter</button>
-        <button onclick="exportHistoricalToExcel()" class="p-2 rounded bg-green-600 text-white" data-lang-key="exportHistorical">Export Historical Data</button>
+      <h2 class="text-xl font-semibold" data-lang-key="historicalAnalytics">Historical Analytics</h2>
+      
+      <!-- Advanced Historical Controls -->
+      <div class="historical-controls" id="historical-controls">
+        <div class="flex flex-wrap gap-4">
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm mb-1">Start Date:</label>
+            <input type="date" id="start-date" class="historical-date-input w-full">
+          </div>
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm mb-1">End Date:</label>
+            <input type="date" id="end-date" class="historical-date-input w-full">
+          </div>
+          <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm mb-1">Data Interval:</label>
+            <select id="historical-interval" class="historical-date-input w-full">
+              <option value="raw">Raw Data</option>
+              <option value="hourly">Hourly Average</option>
+              <option value="daily">Daily Average</option>
+              <option value="weekly">Weekly Average</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="flex flex-wrap gap-3 mt-4">
+          <button onclick="filterHistoricalData()" class="historical-btn primary">
+            <i class="fas fa-filter mr-2"></i>Apply Filter
+          </button>
+          <button onclick="exportHistoricalToExcel()" class="historical-btn success">
+            <i class="fas fa-file-excel mr-2"></i>Export to Excel
+          </button>
+          <button onclick="generateHistoricalSummary()" class="historical-btn warning">
+            <i class="fas fa-chart-pie mr-2"></i>Generate Summary
+          </button>
+          <button onclick="compareHistoricalPeriods()" class="historical-btn primary">
+            <i class="fas fa-chart-line mr-2"></i>Compare Periods
+          </button>
+          <button onclick="detectAnomalies()" class="historical-btn warning">
+            <i class="fas fa-exclamation-triangle mr-2"></i>Detect Anomalies
+          </button>
+        </div>
+        
+        <div class="flex flex-wrap gap-4 mt-4">
+          <div class="historical-stat-card">
+            <div class="historical-stat-label">Total Records</div>
+            <div class="historical-stat-value" id="historical-total-records">0</div>
+          </div>
+          <div class="historical-stat-card">
+            <div class="historical-stat-label">Date Range</div>
+            <div class="historical-stat-value" id="historical-date-range">-</div>
+          </div>
+          <div class="historical-stat-card">
+            <div class="historical-stat-label">Avg Temperature</div>
+            <div class="historical-stat-value" id="historical-avg-temp">0°C</div>
+          </div>
+          <div class="historical-stat-card">
+            <div class="historical-stat-label">Max Vibration</div>
+            <div class="historical-stat-value" id="historical-max-vib">0 m/s²</div>
+          </div>
+        </div>
       </div>
+
       <div id="historical-loading" class="loading-spinner"></div>
-      <div class="historical-charts" id="historical-charts" style="display: none;">
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Spindle Load (%)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+      
+      <!-- Historical Charts Grid -->
+      <div id="historical-charts" style="display: none;">
+        <div class="historical-charts">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Spindle Load (%)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="spindleLoadChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('spindleLoadChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('spindleLoadChart', 'Spindle Load')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Velocity (mm/s)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Velocity (mm/s)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="velocityChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('velocityChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('velocityChart', 'Velocity')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Velocity Peak (m/s²)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Velocity Peak (m/s²)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="spindleVibPeakChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('spindleVibPeakChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('spindleVibPeakChart', 'Velocity Peak')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Spindle Motor Temp (°C)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Spindle Motor Temp (°C)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="spindleMotorTempChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('spindleMotorTempChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('spindleMotorTempChart', 'Spindle Motor Temp')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">X-Axis Motor Temp (°C)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">X-Axis Motor Temp (°C)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="xMotorTempChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('xMotorTempChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('xMotorTempChart', 'X-Axis Motor Temp')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Z-Axis Motor Temp (°C)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Z-Axis Motor Temp (°C)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="zMotorTempChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('zMotorTempChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('zMotorTempChart', 'Z-Axis Motor Temp')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">X-Axis Motor Load (%)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">X-Axis Motor Load (%)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="xMotorLoadChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('xMotorLoadChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('xMotorLoadChart', 'X-Axis Motor Load')">Download</button>
-            </div>
           </div>
-        </div>
-        <div class="historical-chart-card">
-          <h3 class="text-lg font-semibold text-center">Z-Axis Motor Load (%)</h3>
-          <div class="chart-container">
-            <div class="chart-wrapper">
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Z-Axis Motor Load (%)</h3>
+            <div class="chart-container" style="height: 300px;">
               <canvas id="zMotorLoadChart"></canvas>
             </div>
-            <div class="chart-actions">
-              <button class="chart-btn" onclick="resetZoom('zMotorLoadChart')">Reset Zoom</button>
-              <button class="chart-btn" onclick="downloadChart('zMotorLoadChart', 'Z-Axis Motor Load')">Download</button>
+          </div>
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Hydraulic Motor Temp (°C)</h3>
+            <div class="chart-container" style="height: 300px;">
+              <canvas id="hydraulicMotorTempChart"></canvas>
+            </div>
+          </div>
+          <div class="historical-chart-card">
+            <h3 class="text-lg font-semibold text-center">Hydraulic Motor Load (%)</h3>
+            <div class="chart-container" style="height: 300px;">
+              <canvas id="hydraulicMotorLoadChart"></canvas>
             </div>
           </div>
         </div>
@@ -1985,10 +2117,18 @@
             <th data-lang-key="average">Average</th>
             <th data-lang-key="maximum">Maximum</th>
             <th data-lang-key="minimum">Minimum</th>
+            <th>Std Dev</th>
+            <th>Trend</th>
           </tr>
         </thead>
         <tbody id="summary-table-body"></tbody>
       </table>
+      
+      <!-- Anomaly Detection Results -->
+      <div id="anomaly-results" class="mt-4" style="display: none;">
+        <h3 class="text-lg font-semibold mb-3">Anomaly Detection Results</h3>
+        <div id="anomaly-list" class="grid grid-cols-1 gap-3"></div>
+      </div>
     </div>
    
     <!-- Graphical Representation Section -->
@@ -2002,6 +2142,28 @@
           <button onclick="toggleGraphLayout()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             <i class="fas fa-th mr-2"></i>Toggle Layout
           </button>
+        </div>
+      </div>
+
+      <!-- Machine Health Score Card - NEW FEATURE -->
+      <div class="bg-gradient-to-r from-purple-900 to-blue-900 p-5 rounded-xl shadow-lg mb-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-2">Machine Health Score</h3>
+            <div class="flex items-center gap-4">
+              <div class="health-score">
+                <div class="health-score-inner" id="health-score-value">98</div>
+              </div>
+              <div class="text-white">
+                <p class="text-lg">Overall Health: <span id="health-status" class="font-bold text-green-400">Excellent</span></p>
+                <p class="text-sm opacity-80">Based on vibration, temperature, and current analysis</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-white text-sm">Next Maintenance:</p>
+            <p class="text-yellow-300 font-bold" id="next-maintenance-prediction">2025-06-15</p>
+          </div>
         </div>
       </div>
 
@@ -2926,6 +3088,9 @@ function toggleTheme() {
     document.querySelector('.historical-section h2').classList.toggle('light-mode');
     document.querySelectorAll('.historical-chart-card').forEach(card => card.classList.toggle('light-mode'));
     document.querySelectorAll('.historical-chart-card h3').forEach(h3 => h3.classList.toggle('light-mode'));
+    document.querySelectorAll('.historical-controls').forEach(control => control.classList.toggle('light-mode'));
+    document.querySelectorAll('.historical-date-input').forEach(input => input.classList.toggle('light-mode'));
+    document.querySelectorAll('.historical-stat-card').forEach(card => card.classList.toggle('light-mode'));
     document.querySelector('.summary-table').classList.toggle('light-mode');
     document.querySelectorAll('.summary-table th').forEach(th => th.classList.toggle('light-mode'));
     document.querySelectorAll('.summary-table td').forEach(td => td.classList.toggle('light-mode'));
@@ -2948,6 +3113,7 @@ function toggleTheme() {
     document.querySelector('.temp-summary-card').classList.toggle('light-mode');
     document.querySelector('.maintenance-schedule').classList.toggle('light-mode');
     document.querySelector('.maintenance-log').classList.toggle('light-mode');
+    document.querySelectorAll('.prediction-card').forEach(card => card.classList.toggle('light-mode'));
     
     // Update all charts to reflect theme change
     setTimeout(() => {
@@ -3015,6 +3181,24 @@ function showSection(sectionId) {
     }
     if (sectionId === 'temperature-analysis-section') {
         updateTemperatureCharts();
+    }
+    if (sectionId === 'historical-section') {
+        // Initialize historical section with default dates
+        const today = new Date();
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(today.getDate() - 7);
+        
+        if (!document.getElementById('start-date').value) {
+            document.getElementById('start-date').valueAsDate = sevenDaysAgo;
+        }
+        if (!document.getElementById('end-date').value) {
+            document.getElementById('end-date').valueAsDate = today;
+        }
+        
+        // Auto-load historical data when section is shown
+        setTimeout(() => {
+            filterHistoricalData();
+        }, 500);
     }
 }
 
@@ -3101,6 +3285,9 @@ const alertHistory = {
     'CNC-04': [],
     'CNC-05': []
 };
+
+// Historical data cache
+let historicalDataCache = null;
 
 // ======================
 // Machine Selection Functions
@@ -3431,6 +3618,9 @@ function startDataFetch() {
             
             // Update all charts
             updateAllCharts();
+            
+            // Update health score
+            updateHealthScore();
         }, (error) => {
             document.getElementById('loading-spinner').style.display = 'none';
             console.error('Error fetching data:', error);
@@ -3440,7 +3630,109 @@ function startDataFetch() {
 }
 
 // ======================
-// Temperature Chart Functions - ENHANCED with larger charts
+// Health Score Calculation
+// ======================
+
+function updateHealthScore() {
+    if (!selectedMachine) return;
+    
+    // Calculate health score based on multiple factors
+    let score = 100;
+    
+    // Factor 1: Temperature
+    const spindleTemp = parseFloat(document.getElementById('spindle-temp').innerText) || 0;
+    const xTemp = parseFloat(document.getElementById('x-temp').innerText) || 0;
+    const zTemp = parseFloat(document.getElementById('z-temp').innerText) || 0;
+    const hydraulicTemp = parseFloat(document.getElementById('hydraulic-temp').innerText) || 0;
+    
+    const maxTemp = Math.max(spindleTemp, xTemp, zTemp, hydraulicTemp);
+    if (maxTemp > TEMPERATURE_THRESHOLDS.abnormal) {
+        score -= 40;
+    } else if (maxTemp > TEMPERATURE_THRESHOLDS.warning) {
+        score -= 20;
+    } else if (maxTemp > TEMPERATURE_THRESHOLDS.normal) {
+        score -= 10;
+    }
+    
+    // Factor 2: Vibration
+    const vibX = parseFloat(document.getElementById('spindle-vib-x').innerText) || 0;
+    const vibY = parseFloat(document.getElementById('spindle-vib-y').innerText) || 0;
+    const vibZ = parseFloat(document.getElementById('spindle-vib-z').innerText) || 0;
+    
+    const maxVib = Math.max(vibX, vibY, vibZ);
+    if (maxVib > VIBRATION_THRESHOLDS.abnormal) {
+        score -= 30;
+    } else if (maxVib > VIBRATION_THRESHOLDS.warning) {
+        score -= 15;
+    } else if (maxVib > VIBRATION_THRESHOLDS.normal) {
+        score -= 5;
+    }
+    
+    // Factor 3: Current imbalance
+    const spindleR = parseFloat(document.getElementById('spindle-cur-r').innerText) || 0;
+    const spindleY = parseFloat(document.getElementById('spindle-cur-y').innerText) || 0;
+    const spindleB = parseFloat(document.getElementById('spindle-cur-b').innerText) || 0;
+    
+    if (spindleR > 0 || spindleY > 0 || spindleB > 0) {
+        const avgCurrent = (spindleR + spindleY + spindleB) / 3;
+        if (avgCurrent > 0) {
+            const maxDiff = Math.max(
+                Math.abs(spindleR - avgCurrent),
+                Math.abs(spindleY - avgCurrent),
+                Math.abs(spindleB - avgCurrent)
+            );
+            const imbalance = (maxDiff / avgCurrent) * 100;
+            if (imbalance > 20) {
+                score -= 25;
+            } else if (imbalance > 10) {
+                score -= 10;
+            } else if (imbalance > 5) {
+                score -= 5;
+            }
+        }
+    }
+    
+    // Ensure score is between 0 and 100
+    score = Math.max(0, Math.min(100, score));
+    
+    // Update display
+    document.getElementById('health-score-value').innerText = Math.round(score);
+    
+    let healthStatus = 'Excellent';
+    if (score < 50) {
+        healthStatus = 'Critical';
+    } else if (score < 70) {
+        healthStatus = 'Warning';
+    } else if (score < 90) {
+        healthStatus = 'Good';
+    }
+    
+    document.getElementById('health-status').innerText = healthStatus;
+    document.getElementById('health-status').className = `font-bold ${
+        healthStatus === 'Excellent' ? 'text-green-400' :
+        healthStatus === 'Good' ? 'text-blue-400' :
+        healthStatus === 'Warning' ? 'text-yellow-400' : 'text-red-400'
+    }`;
+    
+    // Predict next maintenance
+    const today = new Date();
+    const nextMaintenance = new Date(today);
+    if (score > 90) {
+        nextMaintenance.setDate(today.getDate() + 30);
+    } else if (score > 70) {
+        nextMaintenance.setDate(today.getDate() + 14);
+    } else if (score > 50) {
+        nextMaintenance.setDate(today.getDate() + 7);
+    } else {
+        nextMaintenance.setDate(today.getDate() + 1);
+    }
+    
+    document.getElementById('next-maintenance-prediction').innerText = 
+        nextMaintenance.toISOString().split('T')[0];
+}
+
+// ======================
+// Temperature Chart Functions
 // ======================
 
 function updateTemperatureCharts() {
@@ -5530,8 +5822,79 @@ function loadMaintenanceLog() {
 }
 
 // ======================
-// Historical Data Functions
+// Historical Data Functions - FIXED AND ENHANCED
 // ======================
+
+function aggregateDataByInterval(data, interval) {
+    if (interval === 'raw') return data;
+    
+    const aggregated = [];
+    const grouped = {};
+    
+    data.forEach(item => {
+        const date = new Date(item.timestamp);
+        let key;
+        
+        if (interval === 'hourly') {
+            key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}`;
+        } else if (interval === 'daily') {
+            key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        } else if (interval === 'weekly') {
+            const week = Math.floor(date.getDate() / 7);
+            key = `${date.getFullYear()}-${date.getMonth()}-${week}`;
+        }
+        
+        if (!grouped[key]) {
+            grouped[key] = {
+                timestamps: [],
+                spindleLoad: [],
+                velocity: [],
+                spindleVibPeak: [],
+                spindleMotorTemp: [],
+                xMotorTemp: [],
+                zMotorTemp: [],
+                xMotorLoad: [],
+                zMotorLoad: [],
+                hydraulicMotorTemp: [],
+                hydraulicMotorLoad: []
+            };
+        }
+        
+        grouped[key].timestamps.push(item.timestamp);
+        grouped[key].spindleLoad.push(item.spindleLoad);
+        grouped[key].velocity.push(item.velocity);
+        grouped[key].spindleVibPeak.push(item.spindleVibPeak);
+        grouped[key].spindleMotorTemp.push(item.spindleMotorTemp);
+        grouped[key].xMotorTemp.push(item.xMotorTemp);
+        grouped[key].zMotorTemp.push(item.zMotorTemp);
+        grouped[key].xMotorLoad.push(item.xMotorLoad);
+        grouped[key].zMotorLoad.push(item.zMotorLoad);
+        grouped[key].hydraulicMotorTemp.push(item.hydraulicMotorTemp);
+        grouped[key].hydraulicMotorLoad.push(item.hydraulicMotorLoad);
+    });
+    
+    // Calculate averages for each group
+    for (const key in grouped) {
+        const group = grouped[key];
+        const avgTimestamp = group.timestamps[Math.floor(group.timestamps.length / 2)];
+        
+        aggregated.push({
+            timestamp: avgTimestamp,
+            spindleLoad: group.spindleLoad.reduce((a, b) => a + b, 0) / group.spindleLoad.length,
+            velocity: group.velocity.reduce((a, b) => a + b, 0) / group.velocity.length,
+            spindleVibPeak: group.spindleVibPeak.reduce((a, b) => a + b, 0) / group.spindleVibPeak.length,
+            spindleMotorTemp: group.spindleMotorTemp.reduce((a, b) => a + b, 0) / group.spindleMotorTemp.length,
+            xMotorTemp: group.xMotorTemp.reduce((a, b) => a + b, 0) / group.xMotorTemp.length,
+            zMotorTemp: group.zMotorTemp.reduce((a, b) => a + b, 0) / group.zMotorTemp.length,
+            xMotorLoad: group.xMotorLoad.reduce((a, b) => a + b, 0) / group.xMotorLoad.length,
+            zMotorLoad: group.zMotorLoad.reduce((a, b) => a + b, 0) / group.zMotorLoad.length,
+            hydraulicMotorTemp: group.hydraulicMotorTemp.reduce((a, b) => a + b, 0) / group.hydraulicMotorTemp.length,
+            hydraulicMotorLoad: group.hydraulicMotorLoad.reduce((a, b) => a + b, 0) / group.hydraulicMotorLoad.length
+        });
+    }
+    
+    return aggregated.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+}
 
 function fetchHistoricalData(startDate, endDate) {
     if (!selectedMachine) {
@@ -5546,7 +5909,8 @@ function fetchHistoricalData(startDate, endDate) {
     const chartIds = [
         'spindleLoadChart', 'velocityChart', 'spindleVibPeakChart',
         'spindleMotorTempChart', 'xMotorTempChart', 'zMotorTempChart',
-        'xMotorLoadChart', 'zMotorLoadChart'
+        'xMotorLoadChart', 'zMotorLoadChart', 'hydraulicMotorTempChart',
+        'hydraulicMotorLoadChart'
     ];
    
     chartIds.forEach(chartId => {
@@ -5562,35 +5926,41 @@ function fetchHistoricalData(startDate, endDate) {
 
     machineRef.once('value', (snapshot) => {
         document.getElementById('historical-loading').style.display = 'none';
-        document.getElementById('historical-charts').style.display = 'flex';
        
-        const data = snapshot.val();
-        if (!data) {
+        const allData = snapshot.val();
+        if (!allData) {
             console.warn('No historical data found for the selected period');
+            alert('No data found for this machine');
             return;
         }
 
-        // Convert the data object to an array of entries
-        const entries = Object.entries(data).map(([key, value]) => ({
-            id: key,
-            ...value
-        }));
-       
-        // Filter entries by date range
-        const filteredEntries = entries.filter(entry => {
-            if (!entry || !entry.Timestamp) return false;
-            const entryDate = new Date(entry.Timestamp);
-            return entryDate >= startDate && entryDate <= endDate;
-        });
+        // Process all entries
+        const entries = [];
+        for (const key in allData) {
+            const entry = allData[key];
+            if (entry && entry.Timestamp) {
+                const entryDate = new Date(entry.Timestamp);
+                if (!isNaN(entryDate.getTime()) && entryDate >= startDate && entryDate <= endDate) {
+                    entries.push({
+                        id: key,
+                        ...entry
+                    });
+                }
+            }
+        }
 
-        if (filteredEntries.length === 0) {
-            console.warn('No data found for the selected date range');
+        if (entries.length === 0) {
             document.getElementById('historical-charts').style.display = 'none';
+            alert(`No data found between ${startDate.toLocaleDateString()} and ${endDate.toLocaleDateString()}`);
             return;
         }
+
+        // Sort entries by timestamp
+        entries.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
 
         // Prepare data for charts
         const historicalData = {
+            timestamps: [],
             spindleLoad: [],
             velocity: [],
             spindleVibPeak: [],
@@ -5599,52 +5969,158 @@ function fetchHistoricalData(startDate, endDate) {
             zMotorTemp: [],
             xMotorLoad: [],
             zMotorLoad: [],
-            timestamps: []
+            hydraulicMotorTemp: [],
+            hydraulicMotorLoad: []
         };
 
-        filteredEntries.forEach(entry => {
-            historicalData.timestamps.push(formatTimestamp(entry.Timestamp));
+        entries.forEach(entry => {
+            historicalData.timestamps.push(entry.Timestamp);
            
+            // Spindle Motor data
             if (entry.SPINDLE_MOTOR) {
                 historicalData.spindleLoad.push(parseNumber(entry.SPINDLE_MOTOR.SPINDLE_LOAD?.Value || 0));
                 historicalData.velocity.push(parseNumber(entry.SPINDLE_MOTOR.SPINDLE_VIBRATION?.Velocity || 0));
                 historicalData.spindleVibPeak.push(parseNumber(entry.SPINDLE_MOTOR.SPINDLE_VIBRATION?.Velocity_Peak || 0));
                 historicalData.spindleMotorTemp.push(parseNumber(entry.SPINDLE_MOTOR.MOTOR_TEMPERATURE?.Motor_Temperature || 0));
+            } else {
+                historicalData.spindleLoad.push(0);
+                historicalData.velocity.push(0);
+                historicalData.spindleVibPeak.push(0);
+                historicalData.spindleMotorTemp.push(0);
             }
            
+            // X Motor data
             if (entry.X_MOTOR) {
                 historicalData.xMotorTemp.push(parseNumber(entry.X_MOTOR.MOTOR_TEMPERATURE?.Motor_Temperature || 0));
                 historicalData.xMotorLoad.push(parseNumber(entry.X_MOTOR.MOTOR_LOAD?.Value || 0));
+            } else {
+                historicalData.xMotorTemp.push(0);
+                historicalData.xMotorLoad.push(0);
             }
            
+            // Z Motor data
             if (entry.Z_MOTOR) {
                 historicalData.zMotorTemp.push(parseNumber(entry.Z_MOTOR.MOTOR_TEMPERATURE?.Motor_Temperature || 0));
                 historicalData.zMotorLoad.push(parseNumber(entry.Z_MOTOR.MOTOR_LOAD?.Value || 0));
+            } else {
+                historicalData.zMotorTemp.push(0);
+                historicalData.zMotorLoad.push(0);
+            }
+           
+            // Hydraulic Motor data
+            if (entry.HYDRAULIC_MOTOR) {
+                historicalData.hydraulicMotorTemp.push(parseNumber(entry.HYDRAULIC_MOTOR.MOTOR_TEMPERATURE?.Motor_Temperature || 0));
+                historicalData.hydraulicMotorLoad.push(parseNumber(entry.HYDRAULIC_MOTOR.MOTOR_LOAD?.Value || 0));
+            } else {
+                historicalData.hydraulicMotorTemp.push(0);
+                historicalData.hydraulicMotorLoad.push(0);
             }
         });
+
+        // Apply interval aggregation if selected
+        const interval = document.getElementById('historical-interval').value;
+        const aggregatedData = aggregateDataByInterval(
+            historicalData.timestamps.map((timestamp, index) => ({
+                timestamp,
+                spindleLoad: historicalData.spindleLoad[index],
+                velocity: historicalData.velocity[index],
+                spindleVibPeak: historicalData.spindleVibPeak[index],
+                spindleMotorTemp: historicalData.spindleMotorTemp[index],
+                xMotorTemp: historicalData.xMotorTemp[index],
+                zMotorTemp: historicalData.zMotorTemp[index],
+                xMotorLoad: historicalData.xMotorLoad[index],
+                zMotorLoad: historicalData.zMotorLoad[index],
+                hydraulicMotorTemp: historicalData.hydraulicMotorTemp[index],
+                hydraulicMotorLoad: historicalData.hydraulicMotorLoad[index]
+            })),
+            interval
+        );
+
+        // Prepare aggregated data for charts
+        const aggTimestamps = aggregatedData.map(d => d.timestamp);
+        const aggSpindleLoad = aggregatedData.map(d => d.spindleLoad);
+        const aggVelocity = aggregatedData.map(d => d.velocity);
+        const aggSpindleVibPeak = aggregatedData.map(d => d.spindleVibPeak);
+        const aggSpindleMotorTemp = aggregatedData.map(d => d.spindleMotorTemp);
+        const aggXMotorTemp = aggregatedData.map(d => d.xMotorTemp);
+        const aggZMotorTemp = aggregatedData.map(d => d.zMotorTemp);
+        const aggXMotorLoad = aggregatedData.map(d => d.xMotorLoad);
+        const aggZMotorLoad = aggregatedData.map(d => d.zMotorLoad);
+        const aggHydraulicMotorTemp = aggregatedData.map(d => d.hydraulicMotorTemp);
+        const aggHydraulicMotorLoad = aggregatedData.map(d => d.hydraulicMotorLoad);
 
         const isLightMode = document.body.classList.contains('light-mode');
         const textColor = isLightMode ? '#1f2937' : '#d1d5db';
         const gridColor = isLightMode ? '#e5e7eb' : '#4b5563';
 
         // Create charts
-        createHistoricalChart('spindleLoadChart', 'Spindle Load (%)', historicalData.spindleLoad, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('velocityChart', 'Velocity (mm/s)', historicalData.velocity, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('spindleVibPeakChart', 'Velocity Peak (m/s²)', historicalData.spindleVibPeak, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('spindleMotorTempChart', 'Spindle Motor Temp (°C)', historicalData.spindleMotorTemp, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('xMotorTempChart', 'X-Axis Motor Temp (°C)', historicalData.xMotorTemp, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('zMotorTempChart', 'Z-Axis Motor Temp (°C)', historicalData.zMotorTemp, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('xMotorLoadChart', 'X-Axis Motor Load (%)', historicalData.xMotorLoad, historicalData.timestamps, textColor, gridColor);
-        createHistoricalChart('zMotorLoadChart', 'Z-Axis Motor Load (%)', historicalData.zMotorLoad, historicalData.timestamps, textColor, gridColor);
+        createHistoricalChart('spindleLoadChart', 'Spindle Load (%)', aggSpindleLoad, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('velocityChart', 'Velocity (mm/s)', aggVelocity, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('spindleVibPeakChart', 'Velocity Peak (m/s²)', aggSpindleVibPeak, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('spindleMotorTempChart', 'Spindle Motor Temp (°C)', aggSpindleMotorTemp, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('xMotorTempChart', 'X-Axis Motor Temp (°C)', aggXMotorTemp, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('zMotorTempChart', 'Z-Axis Motor Temp (°C)', aggZMotorTemp, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('xMotorLoadChart', 'X-Axis Motor Load (%)', aggXMotorLoad, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('zMotorLoadChart', 'Z-Axis Motor Load (%)', aggZMotorLoad, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('hydraulicMotorTempChart', 'Hydraulic Motor Temp (°C)', aggHydraulicMotorTemp, aggTimestamps, textColor, gridColor);
+        createHistoricalChart('hydraulicMotorLoadChart', 'Hydraulic Motor Load (%)', aggHydraulicMotorLoad, aggTimestamps, textColor, gridColor);
+
+        document.getElementById('historical-charts').style.display = 'block';
 
         // Update summary table
-        updateSummaryTable(historicalData);
+        updateSummaryTable({
+            spindleLoad: aggSpindleLoad,
+            velocity: aggVelocity,
+            spindleVibPeak: aggSpindleVibPeak,
+            spindleMotorTemp: aggSpindleMotorTemp,
+            xMotorTemp: aggXMotorTemp,
+            zMotorTemp: aggZMotorTemp,
+            xMotorLoad: aggXMotorLoad,
+            zMotorLoad: aggZMotorLoad,
+            hydraulicMotorTemp: aggHydraulicMotorTemp,
+            hydraulicMotorLoad: aggHydraulicMotorLoad
+        });
+
+        // Update historical stats
+        updateHistoricalStats(aggregatedData);
+
+        // Store in cache
+        historicalDataCache = {
+            timestamps: aggTimestamps,
+            spindleLoad: aggSpindleLoad,
+            velocity: aggVelocity,
+            spindleVibPeak: aggSpindleVibPeak,
+            spindleMotorTemp: aggSpindleMotorTemp,
+            xMotorTemp: aggXMotorTemp,
+            zMotorTemp: aggZMotorTemp,
+            xMotorLoad: aggXMotorLoad,
+            zMotorLoad: aggZMotorLoad,
+            hydraulicMotorTemp: aggHydraulicMotorTemp,
+            hydraulicMotorLoad: aggHydraulicMotorLoad
+        };
 
     }, (error) => {
         document.getElementById('historical-loading').style.display = 'none';
         console.error('Error fetching historical data:', error);
         alert('Failed to fetch historical data. Please check your network or database.');
     });
+}
+
+function updateHistoricalStats(data) {
+    if (!data || data.length === 0) return;
+    
+    document.getElementById('historical-total-records').innerText = data.length;
+    
+    const firstDate = new Date(data[0].timestamp);
+    const lastDate = new Date(data[data.length - 1].timestamp);
+    document.getElementById('historical-date-range').innerText = 
+        `${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}`;
+    
+    const avgTemp = data.reduce((sum, d) => sum + d.spindleMotorTemp, 0) / data.length;
+    document.getElementById('historical-avg-temp').innerText = avgTemp.toFixed(2) + '°C';
+    
+    const maxVib = Math.max(...data.map(d => Math.max(d.velocity, 0)));
+    document.getElementById('historical-max-vib').innerText = maxVib.toFixed(2) + ' mm/s';
 }
 
 function createHistoricalChart(chartId, label, data, labels, textColor, gridColor) {
@@ -5656,17 +6132,26 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
         window[chartId].destroy();
     }
 
+    // Format timestamps for display
+    const formattedLabels = labels.map(ts => {
+        const date = new Date(ts);
+        return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+    });
+
     window[chartId] = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: formattedLabels,
             datasets: [{
                 label: label,
                 data: data,
                 borderColor: '#3b82f6',
                 backgroundColor: 'rgba(59, 130, 246, 0.1)',
                 fill: true,
-                tension: 0.1
+                tension: 0.1,
+                borderWidth: 2,
+                pointRadius: 3,
+                pointHoverRadius: 5
             }]
         },
         options: {
@@ -5680,6 +6165,15 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
                     display: true,
                     text: label,
                     color: textColor
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const dataIndex = context.dataIndex;
+                            const timestamp = new Date(labels[dataIndex]).toLocaleString();
+                            return [`${label}: ${context.parsed.y.toFixed(2)}`, `Time: ${timestamp}`];
+                        }
+                    }
                 },
                 zoom: {
                     zoom: {
@@ -5696,7 +6190,7 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: label, color: textColor },
+                    title: { display: true, text: label.split(' ')[0], color: textColor },
                     ticks: { color: textColor },
                     grid: { color: gridColor }
                 },
@@ -5704,8 +6198,10 @@ function createHistoricalChart(chartId, label, data, labels, textColor, gridColo
                     title: { display: true, text: 'Time', color: textColor },
                     ticks: { 
                         color: textColor,
+                        maxRotation: 45,
+                        minRotation: 45,
                         callback: function(value, index) {
-                            return index % 5 === 0 ? value : '';
+                            return index % Math.max(1, Math.floor(formattedLabels.length / 10)) === 0 ? value : '';
                         }
                     },
                     grid: { color: gridColor }
@@ -5727,16 +6223,29 @@ function updateSummaryTable(historicalData) {
         { name: 'X-Axis Motor Temp (°C)', data: historicalData.xMotorTemp },
         { name: 'Z-Axis Motor Temp (°C)', data: historicalData.zMotorTemp },
         { name: 'X-Axis Motor Load (%)', data: historicalData.xMotorLoad },
-        { name: 'Z-Axis Motor Load (%)', data: historicalData.zMotorLoad }
+        { name: 'Z-Axis Motor Load (%)', data: historicalData.zMotorLoad },
+        { name: 'Hydraulic Motor Temp (°C)', data: historicalData.hydraulicMotorTemp },
+        { name: 'Hydraulic Motor Load (%)', data: historicalData.hydraulicMotorLoad }
     ];
 
     parameters.forEach(param => {
         const validData = param.data.filter(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0);
         if (validData.length === 0) return;
 
-        const avg = (validData.reduce((a, b) => a + b, 0) / validData.length).toFixed(2);
+        const avg = (validData.reduce((a, b) => a + parseFloat(b), 0) / validData.length).toFixed(2);
         const max = Math.max(...validData.map(v => parseFloat(v))).toFixed(2);
         const min = Math.min(...validData.map(v => parseFloat(v))).toFixed(2);
+        
+        // Calculate standard deviation
+        const mean = validData.reduce((a, b) => a + parseFloat(b), 0) / validData.length;
+        const squaredDiffs = validData.map(v => Math.pow(parseFloat(v) - mean, 2));
+        const variance = squaredDiffs.reduce((a, b) => a + b, 0) / validData.length;
+        const stdDev = Math.sqrt(variance).toFixed(2);
+        
+        // Determine trend (last value compared to average)
+        const lastValue = parseFloat(validData[validData.length - 1]);
+        const trend = lastValue > mean ? '↑' : lastValue < mean ? '↓' : '→';
+        const trendClass = lastValue > mean ? 'trend-up' : lastValue < mean ? 'trend-down' : 'trend-stable';
 
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -5744,6 +6253,8 @@ function updateSummaryTable(historicalData) {
             <td>${avg}</td>
             <td>${max}</td>
             <td>${min}</td>
+            <td>${stdDev}</td>
+            <td class="trend-indicator ${trendClass}">${trend} (${lastValue.toFixed(2)})</td>
         `;
         summaryTableBody.appendChild(row);
     });
@@ -5770,6 +6281,151 @@ function filterHistoricalData() {
     fetchHistoricalData(startDate, endDate);
 }
 
+function generateHistoricalSummary() {
+    if (!historicalDataCache) {
+        alert('Please load historical data first');
+        return;
+    }
+    
+    // Create a summary report
+    const summary = [];
+    
+    for (let i = 0; i < historicalDataCache.timestamps.length; i++) {
+        summary.push({
+            'Timestamp': formatTimestamp(historicalDataCache.timestamps[i]),
+            'Spindle Load (%)': historicalDataCache.spindleLoad[i].toFixed(2),
+            'Velocity (mm/s)': historicalDataCache.velocity[i].toFixed(2),
+            'Velocity Peak (m/s²)': historicalDataCache.spindleVibPeak[i].toFixed(2),
+            'Spindle Motor Temp (°C)': historicalDataCache.spindleMotorTemp[i].toFixed(2),
+            'X Motor Temp (°C)': historicalDataCache.xMotorTemp[i].toFixed(2),
+            'Z Motor Temp (°C)': historicalDataCache.zMotorTemp[i].toFixed(2),
+            'X Motor Load (%)': historicalDataCache.xMotorLoad[i].toFixed(2),
+            'Z Motor Load (%)': historicalDataCache.zMotorLoad[i].toFixed(2),
+            'Hydraulic Motor Temp (°C)': historicalDataCache.hydraulicMotorTemp[i].toFixed(2),
+            'Hydraulic Motor Load (%)': historicalDataCache.hydraulicMotorLoad[i].toFixed(2)
+        });
+    }
+    
+    const ws = XLSX.utils.json_to_sheet(summary);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Historical Summary");
+    
+    const timestamp = formatTimestamp(new Date()).replace(/[: ]/g, '-');
+    const filename = `${selectedMachine}_Historical_Summary_${timestamp}.xlsx`;
+    XLSX.writeFile(wb, filename);
+}
+
+function compareHistoricalPeriods() {
+    if (!historicalDataCache || historicalDataCache.timestamps.length === 0) {
+        alert('Please load historical data first');
+        return;
+    }
+    
+    // Split data into two halves for comparison
+    const midPoint = Math.floor(historicalDataCache.timestamps.length / 2);
+    
+    const firstHalf = {
+        spindleLoad: historicalDataCache.spindleLoad.slice(0, midPoint),
+        velocity: historicalDataCache.velocity.slice(0, midPoint),
+        spindleMotorTemp: historicalDataCache.spindleMotorTemp.slice(0, midPoint)
+    };
+    
+    const secondHalf = {
+        spindleLoad: historicalDataCache.spindleLoad.slice(midPoint),
+        velocity: historicalDataCache.velocity.slice(midPoint),
+        spindleMotorTemp: historicalDataCache.spindleMotorTemp.slice(midPoint)
+    };
+    
+    const firstAvg = {
+        load: firstHalf.spindleLoad.reduce((a, b) => a + b, 0) / firstHalf.spindleLoad.length,
+        velocity: firstHalf.velocity.reduce((a, b) => a + b, 0) / firstHalf.velocity.length,
+        temp: firstHalf.spindleMotorTemp.reduce((a, b) => a + b, 0) / firstHalf.spindleMotorTemp.length
+    };
+    
+    const secondAvg = {
+        load: secondHalf.spindleLoad.reduce((a, b) => a + b, 0) / secondHalf.spindleLoad.length,
+        velocity: secondHalf.velocity.reduce((a, b) => a + b, 0) / secondHalf.velocity.length,
+        temp: secondHalf.spindleMotorTemp.reduce((a, b) => a + b, 0) / secondHalf.spindleMotorTemp.length
+    };
+    
+    const loadChange = ((secondAvg.load - firstAvg.load) / firstAvg.load * 100).toFixed(1);
+    const velocityChange = ((secondAvg.velocity - firstAvg.velocity) / firstAvg.velocity * 100).toFixed(1);
+    const tempChange = ((secondAvg.temp - firstAvg.temp) / firstAvg.temp * 100).toFixed(1);
+    
+    alert(`Period Comparison Results:\n\n` +
+          `First Period Avg: ${firstAvg.load.toFixed(2)}% load, ${firstAvg.velocity.toFixed(2)} mm/s, ${firstAvg.temp.toFixed(2)}°C\n` +
+          `Second Period Avg: ${secondAvg.load.toFixed(2)}% load, ${secondAvg.velocity.toFixed(2)} mm/s, ${secondAvg.temp.toFixed(2)}°C\n\n` +
+          `Changes: Load: ${loadChange}%, Velocity: ${velocityChange}%, Temperature: ${tempChange}%`);
+}
+
+function detectAnomalies() {
+    if (!historicalDataCache || historicalDataCache.timestamps.length === 0) {
+        alert('Please load historical data first');
+        return;
+    }
+    
+    const anomalies = [];
+    
+    // Calculate mean and standard deviation for each parameter
+    const params = [
+        { name: 'Spindle Load', data: historicalDataCache.spindleLoad, unit: '%', threshold: 2 },
+        { name: 'Velocity', data: historicalDataCache.velocity, unit: 'mm/s', threshold: 2 },
+        { name: 'Spindle Temp', data: historicalDataCache.spindleMotorTemp, unit: '°C', threshold: 2 },
+        { name: 'X Motor Temp', data: historicalDataCache.xMotorTemp, unit: '°C', threshold: 2 },
+        { name: 'Z Motor Temp', data: historicalDataCache.zMotorTemp, unit: '°C', threshold: 2 }
+    ];
+    
+    params.forEach(param => {
+        const validData = param.data.filter(v => v > 0);
+        if (validData.length < 5) return;
+        
+        const mean = validData.reduce((a, b) => a + b, 0) / validData.length;
+        const squaredDiffs = validData.map(v => Math.pow(v - mean, 2));
+        const variance = squaredDiffs.reduce((a, b) => a + b, 0) / validData.length;
+        const stdDev = Math.sqrt(variance);
+        
+        param.data.forEach((value, index) => {
+            if (value > 0 && Math.abs(value - mean) > param.threshold * stdDev) {
+                anomalies.push({
+                    timestamp: historicalDataCache.timestamps[index],
+                    parameter: param.name,
+                    value: value.toFixed(2) + param.unit,
+                    expected: mean.toFixed(2) + param.unit,
+                    deviation: ((value - mean) / stdDev).toFixed(2) + 'σ'
+                });
+            }
+        });
+    });
+    
+    // Display anomalies
+    const anomalyDiv = document.getElementById('anomaly-results');
+    const anomalyList = document.getElementById('anomaly-list');
+    
+    if (anomalies.length === 0) {
+        anomalyDiv.style.display = 'none';
+        alert('No anomalies detected in the selected period');
+        return;
+    }
+    
+    anomalyList.innerHTML = '';
+    anomalies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).forEach(anomaly => {
+        const div = document.createElement('div');
+        div.className = 'bg-red-900 bg-opacity-20 border-l-4 border-red-500 p-3 rounded';
+        div.innerHTML = `
+            <div class="flex justify-between">
+                <span class="font-bold">${anomaly.parameter}</span>
+                <span class="text-sm">${formatTimestamp(anomaly.timestamp)}</span>
+            </div>
+            <div class="text-sm mt-1">
+                Value: ${anomaly.value} | Expected: ${anomaly.expected} | Deviation: ${anomaly.deviation}
+            </div>
+        `;
+        anomalyList.appendChild(div);
+    });
+    
+    anomalyDiv.style.display = 'block';
+}
+
 async function exportHistoricalToExcel() {
     try {
         // Get and validate date inputs
@@ -5792,7 +6448,7 @@ async function exportHistoricalToExcel() {
         // Show loading indicator
         document.getElementById('historical-loading').style.display = 'block';
 
-        // Get ALL data from Firebase (no query filtering)
+        // Get ALL data from Firebase
         const refPath = `${selectedMachine}`;
         const machineRef = db.ref(refPath);
         const snapshot = await machineRef.once('value');
@@ -5805,108 +6461,62 @@ async function exportHistoricalToExcel() {
             return;
         }
 
-        // Process ALL entries
+        // Process entries
         const exportData = [];
         let totalEntries = 0;
         let entriesInRange = 0;
 
-        // Convert to array and sort by timestamp (newest first)
-        const entries = Object.entries(allData).map(([key, value]) => ({
-            key,
-            ...value
-        }));
-
-        // Process each entry
-        entries.forEach(entry => {
+        for (const key in allData) {
+            const entry = allData[key];
             totalEntries++;
            
-            // Skip if no timestamp
-            if (!entry.Timestamp) {
-                return;
-            }
+            if (!entry || !entry.Timestamp) continue;
 
-            // Parse entry date
-            let entryDate;
-            try {
-                entryDate = new Date(entry.Timestamp);
-                if (isNaN(entryDate.getTime())) {
-                    return;
-                }
-            } catch (e) {
-                return;
-            }
+            const entryDate = new Date(entry.Timestamp);
+            if (isNaN(entryDate.getTime())) continue;
 
-            // Check if within date range
-            if (entryDate < startDate || entryDate > endDate) {
-                return;
-            }
+            if (entryDate < startDate || entryDate > endDate) continue;
             entriesInRange++;
 
-            // Determine component type
-            let componentType, componentName;
-            if (entry.key.includes('SPINDLE') || entry.id === 'SPINDLE_MOTOR') {
-                componentType = 'spindle';
-                componentName = 'Spindle Motor';
-            }
-            else if (entry.key.includes('X_') || entry.id === 'X_MOTOR') {
-                componentType = 'x';
-                componentName = 'X Motor';
-            }
-            else if (entry.key.includes('Z_') || entry.id === 'Z_MOTOR') {
-                componentType = 'z';
-                componentName = 'Z Motor';
-            }
-            else if (entry.key.includes('HYDRAULIC') || entry.id === 'HYDRAULIC_MOTOR') {
-                componentType = 'hydraulic';
-                componentName = 'Hydraulic Motor';
-            }
-            else {
-                return; // Skip non-motor entries
-            }
+            // Process each motor type
+            const motors = ['SPINDLE_MOTOR', 'X_MOTOR', 'Z_MOTOR', 'HYDRAULIC_MOTOR'];
+            const motorNames = ['Spindle', 'X-Axis', 'Z-Axis', 'Hydraulic'];
 
-            // Process current values
-            const currents = entry.MOTOR_CURRENT || entry.Current || {};
-            const currentR = parseNumber(currents['1_R_Phase'] || currents.R || 0);
-            const currentY = parseNumber(currents['2_Y_Phase'] || currents.Y || 0);
-            const currentB = parseNumber(currents['3_B_Phase'] || currents.B || 0);
-            const maxCurrent = Math.max(currentR, currentY, currentB);
-           
-            // Calculate power
-            let power, kw;
-            if (entry.POWER) {
-                power = parseNumber(entry.POWER.Total_Power || entry.POWER.Power || 0);
-                kw = parseNumber(entry.POWER.Total_kW || entry.POWER.kW || (power / 1000).toFixed(2));
-            } else {
-                power = (Math.sqrt(3) * VOLTAGE * maxCurrent * POWER_FACTOR).toFixed(2);
-                kw = (power / 1000).toFixed(2);
-            }
+            motors.forEach((motor, index) => {
+                const motorData = entry[motor];
+                if (!motorData) return;
 
-            // Process vibration data
-            const vibration = entry.SPINDLE_VIBRATION || entry.VIBRATION || {};
-           
-            // Add to export data
-            exportData.push({
-                'Machine': selectedMachine,
-                'Component': componentName,
-                'Timestamp': formatTimestamp(entry.Timestamp),
-                'Power (W)': power,
-                'Power (kW)': kw,
-                'Load (%)': parseNumber(entry.MOTOR_LOAD?.Value || entry.LOAD?.Value || 0),
-                'Vibration X (m/s²)': parseNumber(vibration.Acceleration_X_Axis || vibration.X || 0),
-                'Vibration Y (m/s²)': parseNumber(vibration.Acceleration_Y_Axis || vibration.Y || 0),
-                'Vibration Z (m/s²)': parseNumber(vibration.Acceleration_Z_Axis || vibration.Z || 0),
-                'Velocity (mm/s)': parseNumber(vibration.Velocity || 0),
-                'Velocity Peak (m/s²)': parseNumber(vibration.Velocity_Peak || 0),
-                'Temperature (°C)': parseNumber(entry.MOTOR_TEMPERATURE?.Motor_Temperature || 0),
-                'Current R (A)': currentR,
-                'Current Y (A)': currentY,
-                'Current B (A)': currentB,
-                'Status': determineStatus(componentType, maxCurrent)
+                const curR = parseNumber(motorData.MOTOR_CURRENT?.['1_R_Phase'] || motorData.MOTOR_CURRENT?.R || 0);
+                const curY = parseNumber(motorData.MOTOR_CURRENT?.['2_Y_Phase'] || motorData.MOTOR_CURRENT?.Y || 0);
+                const curB = parseNumber(motorData.MOTOR_CURRENT?.['3_B_Phase'] || motorData.MOTOR_CURRENT?.B || 0);
+                
+                const load = parseNumber(motorData.MOTOR_LOAD?.Value || motorData.SPINDLE_LOAD?.Value || 0);
+                const temp = parseNumber(motorData.MOTOR_TEMPERATURE?.Motor_Temperature || 0);
+                
+                const vibX = parseNumber(motorData.SPINDLE_VIBRATION?.Acceleration_X_Axis || 0);
+                const vibY = parseNumber(motorData.SPINDLE_VIBRATION?.Acceleration_Y_Axis || 0);
+                const vibZ = parseNumber(motorData.SPINDLE_VIBRATION?.Acceleration_Z_Axis || 0);
+                const velocity = parseNumber(motorData.SPINDLE_VIBRATION?.Velocity || 0);
+                const vibPeak = parseNumber(motorData.SPINDLE_VIBRATION?.Velocity_Peak || 0);
+
+                exportData.push({
+                    'Timestamp': formatTimestamp(entry.Timestamp),
+                    'Machine': selectedMachine,
+                    'Component': motorNames[index],
+                    'Current R (A)': curR.toFixed(2),
+                    'Current Y (A)': curY.toFixed(2),
+                    'Current B (A)': curB.toFixed(2),
+                    'Max Current (A)': Math.max(curR, curY, curB).toFixed(2),
+                    'Load (%)': load.toFixed(2),
+                    'Temperature (°C)': temp.toFixed(2),
+                    'Vibration X (m/s²)': vibX.toFixed(2),
+                    'Vibration Y (m/s²)': vibY.toFixed(2),
+                    'Vibration Z (m/s²)': vibZ.toFixed(2),
+                    'Velocity (mm/s)': velocity.toFixed(2),
+                    'Velocity Peak (m/s²)': vibPeak.toFixed(2)
+                });
             });
-        });
-
-        console.log(`Total entries: ${totalEntries}, In date range: ${entriesInRange}`);
-        console.log('Export data:', exportData);
+        }
 
         if (exportData.length === 0) {
             alert(`No data found between ${startDate.toLocaleDateString()} and ${endDate.toLocaleDateString()}\n\n` +
@@ -5914,7 +6524,7 @@ async function exportHistoricalToExcel() {
             return;
         }
 
-        // Sort by timestamp (oldest first)
+        // Sort by timestamp
         exportData.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
 
         // Create Excel file
@@ -6144,6 +6754,13 @@ function initializeEventListeners() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', logout);
     }
+    
+    // Historical interval change
+    document.getElementById('historical-interval').addEventListener('change', () => {
+        if (document.getElementById('historical-charts').style.display === 'block') {
+            filterHistoricalData();
+        }
+    });
 }
 
 function setupNavigation() {
@@ -6171,6 +6788,33 @@ function setupNavigation() {
 }
 
 // ======================
+// Additional Feature Functions
+// ======================
+
+function showSpindleTrendAnalysis() {
+    alert('Spindle Trend Analysis:\n\n' +
+          'Current Values:\n' +
+          `Load: ${document.getElementById('spindle-load').innerText}\n` +
+          `Temperature: ${document.getElementById('spindle-temp').innerText}\n` +
+          `Vibration X: ${document.getElementById('spindle-vib-x').innerText}\n\n` +
+          'Trends: ' + (currentData.spindle.temp.length > 1 ? 
+          (currentData.spindle.temp[currentData.spindle.temp.length - 1] > 
+           currentData.spindle.temp[0] ? 'Temperature increasing' : 'Temperature stable/decreasing') : 
+          'Insufficient data'));
+}
+
+function showHydraulicTrendAnalysis() {
+    alert('Hydraulic System Analysis:\n\n' +
+          'Current Values:\n' +
+          `Load: ${document.getElementById('hydraulic-load').innerText}\n` +
+          `Temperature: ${document.getElementById('hydraulic-temp').innerText}\n` +
+          `Current R: ${document.getElementById('hydraulic-cur-r').innerText}\n` +
+          `Current Y: ${document.getElementById('hydraulic-cur-y').innerText}\n` +
+          `Current B: ${document.getElementById('hydraulic-cur-b').innerText}\n\n` +
+          'Status: ' + document.getElementById('hydraulic-status').innerText);
+}
+
+// ======================
 // Window Resize Handler
 // ======================
 
@@ -6179,7 +6823,7 @@ window.addEventListener('resize', () => {
     clearTimeout(window.resizeTimer);
     window.resizeTimer = setTimeout(() => {
         if (selectedMachine) {
-            updateTemperatureCharts();
+            updateAllCharts();
         }
     }, 250);
 });
@@ -6213,6 +6857,9 @@ window.onload = function() {
   // Start updating current time
   updateCurrentTime();
   setInterval(updateCurrentTime, 1000);
+  
+  // Register chart plugins
+  Chart.register(ChartZoom);
 };
 
 // Enhanced chart utility functions
@@ -6258,7 +6905,7 @@ function logout() {
         });
 }
 
-// Helper function to determine status based on thresholds (for exportHistoricalToExcel)
+// Helper function to determine status based on thresholds
 function determineStatus(componentType, maxCurrent) {
     if (!selectedMachine) return 'Unknown';
     const thresholds = THRESHOLDS[selectedMachine][componentType];
@@ -6267,6 +6914,19 @@ function determineStatus(componentType, maxCurrent) {
     if (maxCurrent > thresholds.warning) return 'Abnormal';
     if (maxCurrent >= thresholds.normal) return 'Warning';
     return 'Normal';
+}
+
+// Profile picture upload function
+function uploadProfilePic(event) {
+    const file = event.target.files[0];
+    if (file && selectedMachine) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('machine-profile-pic').src = e.target.result;
+            localStorage.setItem(`machineProfilePic_${selectedMachine}`, e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
 }
 </script>
 </body>
